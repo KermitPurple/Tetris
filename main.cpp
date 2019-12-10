@@ -157,7 +157,6 @@ void swap(){
 }
 
 void RandPiece(){
-	srand(time(NULL));
 	int random = rand() % 7;
 	for(int i = 0; i < 4; i++){
 		CurrentTetrimino[i] = Tetrimino[random][i];
@@ -189,7 +188,7 @@ void kbin(){
 }
 
 int main(){
-
+	srand(time(NULL));
 
 	return 0;
 }
