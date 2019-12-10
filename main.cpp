@@ -108,8 +108,11 @@ void tick(){
 }
 
 void PrintGrid(){
-	int g[14][12] = {
+	int g[17][12] = {
 		{ 201, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 187},
+		{ 186, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 186},
+		{ 186, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 186},
+		{ 186, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 186},
 		{ 186, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 186},
 		{ 204, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 185},
 		{ 186, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 186},
@@ -124,7 +127,7 @@ void PrintGrid(){
 		{ 186, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 186},
 		{ 200, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 188},
 	};
-	for(int i = 0; i < 14; i++) {
+	for(int i = 0; i < 17; i++) {
 		for(int j = 0; j < 12; j++) {
 			if( j == 0 || j == 11)
 				cout << char(g[i][j]);
@@ -132,6 +135,9 @@ void PrintGrid(){
 		}
 		cout << endl;
 	}
+}
+
+void PrintHold(){
 }
 
 void rotate(char c){
@@ -211,26 +217,27 @@ void kbin(){
 
 int main(){
 	srand(time(NULL));
-
 	int speed = 20;
 	
 	RandPiece();
-	while(1){
-		if(ticknum % speed == 0){
-			for(int i = 0; i < 4; i++){
-				cout << CurrentTetrimino[i] << "   " << hold[i] <<endl;
-			}
-			cout << endl;
-		}
-		kbin();
-		tick();
 
-		if(ticknum % 10000 == 0){
-			speed--;
-		}
-	}
+	PrintGrid();
+	PrintHold();
 
-
+//	while(1){
+//		if(ticknum % speed == 0){
+//			for(int i = 0; i < 4; i++){
+//				cout << CurrentTetrimino[i] << "   " << hold[i] <<endl;
+//			}
+//			cout << endl;
+//		}
+//		kbin();
+//		tick();
+//
+//		if(ticknum % 10000 == 0){
+//			speed--;
+//		}
+//	}
 
 	return 0;
 }
