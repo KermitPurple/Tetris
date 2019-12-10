@@ -8,6 +8,7 @@ using namespace std;
 
 const int width = 10;
 const int height = 20;
+int score = 0;
 
 int ticknum = 0;
 
@@ -107,6 +108,11 @@ void tick(){
 	}
 }
 
+void PrintScore(){
+	gotoxy(1, 1);
+	cout << "Score:";
+}
+
 void PrintGrid(){
 	int g[27][13] = {
 		{ 201, 205, 205, 205, 205, 205, 205, 203, 205, 205, 205, 205, 187},
@@ -145,6 +151,7 @@ void PrintGrid(){
 		}
 		cout << endl;
 	}
+	PrintScore();
 }
 
 void PrintHold(){
@@ -157,6 +164,11 @@ void PrintHold(){
 			}
 		}
 	}
+}
+
+void PrintScoreNum(){
+	gotoxy(1, 2);
+	cout << score;
 }
 
 void rotate(char c){
@@ -243,6 +255,7 @@ int main(){
 
 	PrintGrid();
 	PrintHold();
+	PrintScoreNum();
 
 	gotoxy(0, 26);
 
