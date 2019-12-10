@@ -152,7 +152,7 @@ void PrintHold(){
 	for(int i = 0; i < 4; i++){
 		for(int  j = 0; j < 4; j++){
 			gotoxy(h.x + 2*j, h.y +  i);
-			if(hold[i][j] == '.'){
+			if(hold[i][j] != '.'){
 				cout << char(219) << char(219);
 			}
 		}
@@ -245,21 +245,6 @@ int main(){
 	PrintHold();
 
 	gotoxy(0, 26);
-
-//	while(1){
-//		if(ticknum % speed == 0){
-//			for(int i = 0; i < 4; i++){
-//				cout << CurrentTetrimino[i] << "   " << hold[i] <<endl;
-//			}
-//			cout << endl;
-//		}
-//		kbin();
-//		tick();
-//
-//		if(ticknum % 10000 == 0){
-//			speed--;
-//		}
-//	}
 
 	return 0;
 }
