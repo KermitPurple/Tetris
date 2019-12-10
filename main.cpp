@@ -1,5 +1,6 @@
 #include<iostream>
 #include<string>
+#include"gotoxy.h"
 using namespace std;
 
 const int width = 10;
