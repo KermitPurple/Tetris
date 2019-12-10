@@ -138,6 +138,15 @@ void PrintGrid(){
 }
 
 void PrintHold(){
+	coord h = {13, 1};
+	for(int i = 0; i < 4; i++){
+		for(int  j = 0; j < 4; j++){
+			gotoxy(h.x + 2*j, h.y +  i);
+			if(hold[i][j] != '.'){
+				cout << char(219) << char(219);
+			}
+		}
+	}
 }
 
 void rotate(char c){
@@ -216,6 +225,7 @@ void kbin(){
 }
 
 int main(){
+	system("cls");
 	srand(time(NULL));
 	int speed = 20;
 	
