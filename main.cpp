@@ -1,11 +1,15 @@
 #include<iostream>
 #include<string>
 #include<conio.h>
+#include<time.h>
+#include<windows.h>
 #include"gotoxy.h"
 using namespace std;
 
 const int width = 10;
 const int height = 20;
+
+int ticknum = 0;
 
 struct coord {
 	int x;
@@ -84,6 +88,16 @@ int grid[height][width] = {
 	{0,0,0,0,0,0,0,0,0,0},
 };
 
+void tick(){
+	Sleep(50);
+	ticknum++;
+	if(ticknum >= 100000){
+		ticknum = 0;
+	}
+	
+}
+
+
 void PrintGrid(){
 	int g[14][12] = {
 		{ 201, 205, 205, 205, 205, 205, 205, 205, 205, 205, 205, 187},
@@ -139,6 +153,17 @@ void rotate(char c){
 	}
 }
 
+void swap(){
+}
+
+void RandPiece(){
+	srand(time(NULL));
+	int random = rand() % 7;
+	for(int i = 0; i < 4; i++){
+		CurrentTetrimino[i] = Tetrimino[random][i];
+	}
+}
+
 void kbin(){
 	if(kbhit()){
 		char ch;
@@ -158,6 +183,7 @@ void kbin(){
 		else if(ch == 'd'){
 		}
 		else if(ch == ' '){
+			swap();
 		}
 	}
 }
