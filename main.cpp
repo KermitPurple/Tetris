@@ -149,6 +149,16 @@ void kbin(){
 		else if(ch == 'e'){
 			rotate('l');
 		}
+		else if(ch == 'w'){
+		}
+		else if(ch == 'a'){
+		}
+		else if(ch == 's'){
+		}
+		else if(ch == 'd'){
+		}
+		else if(ch == ' '){
+		}
 	}
 }
 
