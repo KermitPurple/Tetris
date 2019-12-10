@@ -211,10 +211,12 @@ void kbin(){
 
 int main(){
 	srand(time(NULL));
+
+	int speed = 20;
 	
 	RandPiece();
 	while(1){
-		if(ticknum % 15 == 0){
+		if(ticknum % speed == 0){
 			for(int i = 0; i < 4; i++){
 				cout << CurrentTetrimino[i] << "   " << hold[i] <<endl;
 			}
@@ -222,6 +224,10 @@ int main(){
 		}
 		kbin();
 		tick();
+
+		if(ticknum % 10000 == 0){
+			speed--;
+		}
 	}
 
 
