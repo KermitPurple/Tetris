@@ -1,5 +1,6 @@
 #include<iostream>
 #include<string>
+#include<conio.h>
 #include"gotoxy.h"
 using namespace std;
 
@@ -10,50 +11,55 @@ struct coord {
 	int x;
 	int y;
 };
-
+string CurrentTetrimino[4] = {
+	"oo..",
+	"oo..",
+	"oo..",
+	"oo..",
+};
 ////////////Peices////////////
 const string Tetrimino[][4] = {
 	{
-		{"I..."},
-		{"I..."},
-		{"I..."},
-		{"I..."},
+		"I...",
+		"I...",
+		"I...",
+		"I...",
 	},
 	{
-		{"...."},
-		{"S..."},
-		{"SS.."},
-		{".S.."},
+		"....",
+		"S...",
+		"SS..",
+		".S..",
 	},
 	{
-		{"...."},
-		{".Z.."},
-		{"ZZ.."},
-		{"Z..."},
+		"....",
+		".Z..",
+		"ZZ..",
+		"Z...",
 	},
 	{
-		{"...."},
-		{".T.."},
-		{"TT.."},
-		{".T.."},
+		"....",
+		".T..",
+		"TT..",
+		".T..",
 	},
 	{
-		{"...."},
-		{"...."},
-		{"OO.."},
-		{"OO.."},
+		"....",
+		"....",
+		"OO..",
+		"OO..",
 	},
 	{
-		{"...."},
-		{"l..."},
-		{"l..."},
-		{"ll.."},
+		"....",
+		"l...",
+		"l...",
+		"ll..",
 	},
 	{
-		{"...."},
-		{".J.."},
-		{".J.."},
-		{"JJ.."},
+		"....",
+		".J..",
+		".J..",
+		"JJ..",
 	},
 };
 ////////////Grid///////////
@@ -79,6 +85,7 @@ int grid[height][width] = {
 	{0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0},
 };
+
 
 void PrintGrid(){
 	int g[14][12] = {
@@ -107,7 +114,49 @@ void PrintGrid(){
 	}
 }
 
+void rotate(char c){
+	string temp[4];
+	if(c == 'r'){
+		for(int i = 0; i < 4; i++){
+			for(int j = 0; j < 4;j++){
+				temp[i][j] = CurrentTetrimino[3 - j][i];
+			}
+		}
+		for(int i = 0; i < 4; i++){
+			for(int j = 0; j < 4; j++){
+				CurrentTetrimino[i][j] = temp[i][j];
+			}
+		}
+	}
+	else if(c == 'l'){
+		for(int i = 0; i < 4; i++){
+			for(int j = 0; j < 4;j++){
+				temp[i][j] = CurrentTetrimino[j][3 - i];
+			}
+		}
+		for(int i = 0; i < 4; i++){
+			for(int j = 0; j < 4; j++){
+				CurrentTetrimino[i][j] = temp[i][j];
+			}
+		}
+	}
+}
+
+void kbin(){
+	if(kbhit()){
+		char ch;
+		ch = getch();
+		if(ch == 'q'){
+			rotate('r');
+		}
+		else if(ch == 'e'){
+			rotate('l');
+		}
+	}
+}
+
 int main(){
-	PrintGrid();
+
+
 	return 0;
 }
