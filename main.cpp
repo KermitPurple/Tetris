@@ -212,13 +212,15 @@ void kbin(){
 int main(){
 	srand(time(NULL));
 	
+	RandPiece();
 	while(1){
-		if(ticknum % 5 == 0){
+		if(ticknum % 15 == 0){
 			for(int i = 0; i < 4; i++){
-				cout << CurrentTetrimino[i] << " " << hold[i] <<endl;
+				cout << CurrentTetrimino[i] << "   " << hold[i] <<endl;
 			}
-			swap();
+			cout << endl;
 		}
+		kbin();
 		tick();
 	}
 
