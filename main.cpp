@@ -16,7 +16,18 @@ struct coord {
 	int y;
 };
 
-string CurrentTetrimino[4];
+string CurrentTetrimino[4] = {
+	"....",
+	"....",
+	"....",
+	"....",
+};
+string hold[4] = {
+	"....",
+	"....",
+	"....",
+	"....",
+};
 
 ////////////Peices////////////
 const string Tetrimino[][4] = {
@@ -94,9 +105,7 @@ void tick(){
 	if(ticknum >= 100000){
 		ticknum = 0;
 	}
-	
 }
-
 
 void PrintGrid(){
 	int g[14][12] = {
@@ -153,13 +162,26 @@ void rotate(char c){
 	}
 }
 
-void swap(){
-}
-
 void RandPiece(){
 	int random = rand() % 7;
 	for(int i = 0; i < 4; i++){
 		CurrentTetrimino[i] = Tetrimino[random][i];
+	}
+}
+
+void swap(){
+	bool empty = true;
+	string temp[4];
+	for(int i = 0; i < 4; i++){
+		temp[i] = hold[i];
+		hold[i] = CurrentTetrimino[i];
+		CurrentTetrimino[i] = temp[i];
+		if(CurrentTetrimino[i] != "...."){
+			empty = false;
+		}
+	}
+	if (empty){
+		RandPiece();
 	}
 }
 
@@ -189,6 +211,18 @@ void kbin(){
 
 int main(){
 	srand(time(NULL));
+	
+	while(1){
+		if(ticknum % 5 == 0){
+			for(int i = 0; i < 4; i++){
+				cout << CurrentTetrimino[i] << " " << hold[i] <<endl;
+			}
+			swap();
+		}
+		tick();
+	}
+
+
 
 	return 0;
 }
