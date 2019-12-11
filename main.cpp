@@ -78,26 +78,26 @@ const string Tetrimino[][4] = {
 };
 
 int grid[height][width] = {
-	{0,0,0,0,0,0,0,1,1,1},
-	{0,0,0,0,0,0,0,1,1,1},
-	{0,0,0,0,0,0,0,1,1,1},
-	{0,0,0,0,0,0,0,1,1,1},
-	{1,0,0,0,0,0,0,1,1,1},
-	{1,0,0,0,0,0,0,1,1,1},
-	{1,0,0,0,0,0,0,1,1,1},
-	{1,0,0,0,0,0,0,1,1,1},
-	{1,0,0,0,0,0,0,1,1,1},
-	{1,0,0,0,0,0,0,1,1,1},
-	{1,0,0,0,0,0,0,1,1,1},
-	{1,0,0,0,0,0,0,1,1,1},
-	{1,0,0,0,0,0,0,1,1,1},
-	{1,0,0,0,0,0,0,1,1,1},
-	{1,0,0,0,0,0,0,1,1,1},
-	{1,0,0,0,1,1,0,1,1,1},
-	{1,0,0,0,0,0,0,1,1,1},
-	{1,0,0,0,0,0,0,1,1,1},
-	{1,0,0,0,0,0,0,1,1,1},
-	{1,0,0,1,1,1,1,1,1,1},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
 };
 
 void tick(){
@@ -251,10 +251,22 @@ void swap(){
 	PrintHold();
 }
 
+void solidify(){
+	for(int i = 0; i < 4; i++){
+		for(int j = 0; j < 4; j++){
+			if(CurrentTetrimino[i][j] != '.'){ 
+				grid[CurTet.y - 7 + i + 1][((CurTet.x -1) / 2) + j] = 1;
+			}
+		}
+	}
+	CurTet = { 7, 7};
+	RandPiece();
+}
+
 bool LeftCond(){
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
-			if(CurrentTetrimino[i][j] != '.' && grid[CurTet.y - 7 + i][((CurTet.x -1) / 2) + j - 1] == 1){
+			if(CurrentTetrimino[i][j] != '.' && grid[CurTet.y - 6 + i][((CurTet.x -1) / 2) + j - 1] == 1){
 				return false;
 			}
 		}
@@ -265,7 +277,7 @@ bool LeftCond(){
 bool RightCond(){
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
-			if(CurrentTetrimino[i][j] != '.' && grid[CurTet.y - 7 + i][((CurTet.x -1) / 2) + j + 1] == 1){
+			if(CurrentTetrimino[i][j] != '.' && grid[CurTet.y - 6 + i][((CurTet.x -1) / 2) + j + 1] == 1){
 				return false;
 			}
 		}
@@ -306,6 +318,7 @@ void MoveDown(){
 		CurTet.y++;
 		PrintTetrimino();
 	}
+	else solidify();
 }
 
 void kbin(){
@@ -319,6 +332,7 @@ void kbin(){
 			rotate('r');
 		}
 		else if(ch == 'w'){
+			solidify();
 		}
 		else if(ch == 'a'){
 			MoveLeft();
@@ -339,7 +353,7 @@ int main(){
 	system("cls");
 	srand(time(NULL));
 	int speed = 20;
-	CurTet = {7, 6};
+	CurTet = {7, 7};
 	
 	RandPiece();
 	PrintGrid();
@@ -347,15 +361,10 @@ int main(){
 	PrintScoreNum();
 	while(1){
 		if(ticknum % speed == 0){
+			MoveDown();
 		}
 		kbin();
 		tick();
-		if(ticknum % 100000 == 0){
-			speed--;
-			if(speed == 0){
-				//win
-			}
-		}
 	}
 	gotoxy(0, 26);
 
