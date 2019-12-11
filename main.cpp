@@ -99,20 +99,7 @@ int grid[height][width] = {
 void color(int c){
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), c);
 }
-void ColorSel(string arr[4]){
-	bool empty = true;
-	char ch;
-	for(int i = 0; i < 4; i++){
-		for(int j = 0; j < 4; j++){
-			if(arr[i][j] != '.'){
-				ch = arr[i][j];
-				empty = false;
-				break;				
-			}
-		}
-		if(!empty) break;
-	}
-
+void ColorSel(char ch){
 	switch (ch) {
 		case 'I':
 			color(3);
@@ -192,7 +179,6 @@ void PrintGrid(){
 	PrintScore();
 }
 void PrintHold(){
-	ColorSel(hold);
 	coord h = {13, 1};
 	for(int i = 0; i < 4; i++){
 		for(int  j = 0; j < 4; j++){
@@ -201,27 +187,28 @@ void PrintHold(){
 				cout << "  ";
 			}
 			else {
+				ColorSel(hold[i][j]);
 				cout << char(219) << char(219);
+				color(7);
 			}
 		}
 	}
-	color(7);
 }
 void PrintScoreNum(){
 	gotoxy(1, 2);
 	cout << score;
 }
 void PrintTetrimino(){
-	ColorSel(CurrentTetrimino);
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
 			gotoxy(CurTet.x + 2 * j, CurTet.y + i);
 			if(CurrentTetrimino[i][j] != '.'){
+				ColorSel(CurrentTetrimino[i][j]);
 				cout << char(219) << char(219);
+				color(7);
 			}
 		}
 	}
-	color(7);
 }
 void DeleteTetrimino(){
 	for(int i = 0; i < 4; i++){
@@ -300,7 +287,7 @@ void solidify(){
 bool LeftCond(){
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
-			if(CurrentTetrimino[i][j] != '.' && grid[CurTet.y - 6 + i][((CurTet.x -1) / 2) + j - 1] == 1){
+			if(CurrentTetrimino[i][j] != '.' && (grid[CurTet.y - 6 + i][((CurTet.x -1) / 2) + j - 1] == 1 || CurTet.x + j <= 0)){
 				return false;
 			}
 		}
