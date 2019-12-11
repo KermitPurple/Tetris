@@ -362,7 +362,7 @@ void kbin(){
 			rotate('r');
 		}
 		else if(ch == 'w'){
-			solidify();
+			//fast drop
 		}
 		else if(ch == 'a'){
 			MoveLeft();
