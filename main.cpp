@@ -300,21 +300,12 @@ void ClearLine(){
 	int counter = 0;
 	for(int i = 0; i < height; i++){
 		if(DetectClear(i)){
-			for(int j = 0; i < width; i++){
+			for(int j = 0; j < width; j++){
 				grid[i][j] = '.';
-			}
-			for(int k = i; k >= 0; k++){
-				for(int l = 0; l < width; l++){
-					if(k == 0){
-						grid[k][l] = '.';
-					}
-					else{
-						grid[k][l] = grid[k - 1][l];
-					}
-				}
 			}
 		}
 	}
+	FillBoard();
 }
 void solidify(){
 	for(int i = 0; i < 4; i++){
@@ -324,9 +315,9 @@ void solidify(){
 			}
 		}
 	}
-	ClearLine();
 	CurTet = { 7, 6};
 	RandPiece();
+	ClearLine();
 }
 bool LeftCond(){
 	for(int i = 0; i < 4; i++){
