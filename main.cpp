@@ -290,7 +290,7 @@ void solidify(){
 			}
 		}
 	}
-	CurTet = { 7, 7};
+	CurTet = { 7, 6};
 	RandPiece();
 }
 bool LeftCond(){
@@ -376,7 +376,7 @@ int main(){
 	system("cls");
 	srand(time(NULL));
 	int speed = 20;
-	CurTet = {7, 7};
+	CurTet = {7, 6};
 	
 	RandPiece();
 	PrintGrid();
