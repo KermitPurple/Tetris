@@ -6,6 +6,10 @@
 #include"gotoxy.h"
 using namespace std;
 
+//TODO: add collision on walls and floor.
+//TODO: Clear full lines
+//TODO: Tetris music
+
 struct coord {
 	int x;
 	int y;
