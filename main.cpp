@@ -249,6 +249,28 @@ void swap(){
 	PrintHold();
 }
 
+void MoveLeft(){
+	if(1){
+		DeleteTetrimino();
+		CurTet.x -= 2;
+		PrintTetrimino();
+	}
+}
+
+void MoveRight(){
+	if(1){
+		DeleteTetrimino();
+		CurTet.x += 2;
+		PrintTetrimino();
+	}
+}
+
+void MoveDown(){
+		DeleteTetrimino();
+		CurTet.y++;
+		PrintTetrimino();
+}
+
 void kbin(){
 	if(kbhit()){
 		char ch;
@@ -262,10 +284,13 @@ void kbin(){
 		else if(ch == 'w'){
 		}
 		else if(ch == 'a'){
+			MoveLeft();
 		}
 		else if(ch == 's'){
+			MoveDown();
 		}
 		else if(ch == 'd'){
+			MoveRight();
 		}
 		else if(ch == ' '){
 			swap();
@@ -278,11 +303,9 @@ int main(){
 	srand(time(NULL));
 	int speed = 20;
 	CurTet = {7, 6};
-
 	
 	RandPiece();
 	PrintGrid();
-	PrintHold();
       	PrintTetrimino();
 	PrintScoreNum();
 	while(1){
