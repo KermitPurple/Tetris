@@ -10,28 +10,23 @@ struct coord {
 	int x;
 	int y;
 };
-
 const int width = 10;
 const int height = 20;
 int score = 0;
 int ticknum = 0;
-
 coord CurTet;
-
 string CurrentTetrimino[4] = {
 	"xxxx",
 	"xxxx",
 	"xxxx",
 	"xxxx",
 };
-
 string hold[4] = {
 	"....",
 	"....",
 	"....",
 	"....",
 };
-
 const string Tetrimino[][4] = {
 	{
 		".I..",
@@ -76,7 +71,6 @@ const string Tetrimino[][4] = {
 		".JJ.",
 	},
 };
-
 int grid[height][width] = {
 	{0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0},
@@ -99,7 +93,6 @@ int grid[height][width] = {
 	{0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0},
 };
-
 void tick(){
 	Sleep(50);
 	ticknum++;
@@ -107,12 +100,10 @@ void tick(){
 		ticknum = 0;
 	}
 }
-
 void PrintScore(){
 	gotoxy(1, 1);
 	cout << "Score:";
 }
-
 void PrintGrid(){
 	int g[27][13] = {
 		{ 201, 205, 205, 205, 205, 205, 205, 203, 205, 205, 205, 205, 187},
@@ -153,7 +144,6 @@ void PrintGrid(){
 	}
 	PrintScore();
 }
-
 void PrintHold(){
 	coord h = {13, 1};
 	for(int i = 0; i < 4; i++){
@@ -168,12 +158,10 @@ void PrintHold(){
 		}
 	}
 }
-
 void PrintScoreNum(){
 	gotoxy(1, 2);
 	cout << score;
 }
-
 void PrintTetrimino(){
 
 	for(int i = 0; i < 4; i++){
@@ -185,7 +173,6 @@ void PrintTetrimino(){
 		}
 	}
 }
-
 void DeleteTetrimino(){
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
@@ -196,7 +183,6 @@ void DeleteTetrimino(){
 		}
 	}
 }
-
 void rotate(char c){
 	string temp[4];
 	DeleteTetrimino();
@@ -226,14 +212,12 @@ void rotate(char c){
 	}
 	PrintTetrimino();
 }
-
 void RandPiece(){
 	int random = rand() % 7;
 	for(int i = 0; i < 4; i++){
 		CurrentTetrimino[i] = Tetrimino[random][i];
 	}
 }
-
 void swap(){
 	bool empty = true;
 	string temp[4];
@@ -250,7 +234,6 @@ void swap(){
 	}
 	PrintHold();
 }
-
 void solidify(){
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
@@ -262,7 +245,6 @@ void solidify(){
 	CurTet = { 7, 7};
 	RandPiece();
 }
-
 bool LeftCond(){
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
@@ -273,7 +255,6 @@ bool LeftCond(){
 	}
 	return true;	
 }
-
 bool RightCond(){
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
@@ -284,7 +265,6 @@ bool RightCond(){
 	}
 	return true;
 }
-
 bool DownCond(){
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
@@ -295,7 +275,6 @@ bool DownCond(){
 	}
 	return true;
 }
-
 void MoveLeft(){
 	if(LeftCond()){
 		DeleteTetrimino();
@@ -303,7 +282,6 @@ void MoveLeft(){
 		PrintTetrimino();
 	}
 }
-
 void MoveRight(){
 	if(RightCond()){
 		DeleteTetrimino();
@@ -311,7 +289,6 @@ void MoveRight(){
 		PrintTetrimino();
 	}
 }
-
 void MoveDown(){
 	if(DownCond()){
 		DeleteTetrimino();
@@ -320,7 +297,6 @@ void MoveDown(){
 	}
 	else solidify();
 }
-
 void kbin(){
 	if(kbhit()){
 		char ch;
@@ -348,7 +324,6 @@ void kbin(){
 		}
 	}
 }
-
 int main(){
 	system("cls");
 	srand(time(NULL));
