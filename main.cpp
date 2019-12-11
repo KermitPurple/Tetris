@@ -60,9 +60,9 @@ const string Tetrimino[][4] = {
 	},
 	{
 		"....",
-		".l..",
-		".l..",
-		".ll.",
+		".L..",
+		".L..",
+		".LL.",
 	},
 	{
 		"....",
@@ -93,6 +93,50 @@ int grid[height][width] = {
 	{0,0,0,0,0,0,0,0,0,0},
 	{1,1,1,1,1,1,1,1,1,1},
 };
+void color(int c){
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), c);
+}
+void ColorSel(){
+	bool empty = true;
+	char ch;
+	for(int i = 0; i < 4; i++){
+		for(int j = 0; j < 4; j++){
+			if(CurrentTetrimino[i][j] != '.'){
+				ch = CurrentTetrimino[i][j];
+				empty = false;
+				break;				
+			}
+		}
+		if(!empty) break;
+	}
+
+	switch (ch) {
+		case 'I':
+			color(3);
+			break;
+		case 'S':
+			color(4);
+			break;
+		case 'Z':
+			color(2);
+			break;
+		case 'T':
+			color(13);
+			break;
+		case 'O':
+			color(14);
+			break;
+		case 'L':
+			color(6);
+			break;
+		case 'J':
+			color(12);
+			break;
+		default: 
+			color(7);
+			break;
+	}
+}
 void tick(){
 	Sleep(50);
 	ticknum++;
@@ -145,6 +189,7 @@ void PrintGrid(){
 	PrintScore();
 }
 void PrintHold(){
+	ColorSel();
 	coord h = {13, 1};
 	for(int i = 0; i < 4; i++){
 		for(int  j = 0; j < 4; j++){
@@ -157,13 +202,14 @@ void PrintHold(){
 			}
 		}
 	}
+	color(7);
 }
 void PrintScoreNum(){
 	gotoxy(1, 2);
 	cout << score;
 }
 void PrintTetrimino(){
-
+	ColorSel();
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
 			gotoxy(CurTet.x + 2 * j, CurTet.y + i);
@@ -172,6 +218,7 @@ void PrintTetrimino(){
 			}
 		}
 	}
+	color(7);
 }
 void DeleteTetrimino(){
 	for(int i = 0; i < 4; i++){
