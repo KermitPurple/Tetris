@@ -184,7 +184,17 @@ void PrintTetrimino(){
 			}
 		}
 	}
+}
 
+void DeleteTetrimino(){
+	for(int i = 0; i < 4; i++){
+		for(int j = 0; j < 4; j++){
+			gotoxy(CurTet.x + 2 * j, CurTet.y + i);
+			if(CurrentTetrimino[i][j] != '.'){
+				cout << "  ";
+			}
+		}
+	}
 }
 
 void rotate(char c){
