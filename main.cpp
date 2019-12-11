@@ -23,6 +23,7 @@ string CurrentTetrimino[4] = {
 	"....",
 	"....",
 };
+
 string hold[4] = {
 	"....",
 	"....",
@@ -30,7 +31,6 @@ string hold[4] = {
 	"....",
 };
 
-////////////Peices////////////
 const string Tetrimino[][4] = {
 	{
 		".I..",
@@ -76,7 +76,6 @@ const string Tetrimino[][4] = {
 	},
 };
 
-////////////Grid///////////
 int grid[height][width] = {
 	{0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0},
