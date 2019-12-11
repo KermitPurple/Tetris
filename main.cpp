@@ -9,12 +9,11 @@ using namespace std;
 struct coord {
 	int x;
 	int y;
-};
+} CurTet;
 const int width = 10;
 const int height = 20;
 int score = 0;
 int ticknum = 0;
-coord CurTet;
 string CurrentTetrimino[4] = {
 	"xxxx",
 	"xxxx",
