@@ -230,10 +230,10 @@ void kbin(){
 		char ch;
 		ch = getch();
 		if(ch == 'q'){
-			rotate('r');
+			rotate('l');
 		}
 		else if(ch == 'e'){
-			rotate('l');
+			rotate('r');
 		}
 		else if(ch == 'w'){
 		}
