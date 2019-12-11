@@ -91,7 +91,7 @@ int grid[height][width] = {
 	{0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
+	{1,1,1,1,1,1,1,1,1,1},
 };
 void tick(){
 	Sleep(50);
@@ -219,6 +219,7 @@ void RandPiece(){
 	}
 }
 void swap(){
+	DeleteTetrimino();
 	bool empty = true;
 	string temp[4];
 	for(int i = 0; i < 4; i++){
@@ -233,6 +234,7 @@ void swap(){
 		RandPiece();
 	}
 	PrintHold();
+	PrintTetrimino();
 }
 void solidify(){
 	for(int i = 0; i < 4; i++){
