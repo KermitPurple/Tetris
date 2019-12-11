@@ -309,7 +309,7 @@ void ClearLine(){
 						grid[k][l] = '.';
 					}
 					else{
-					grid[k][l] = grid[k - 1][l];
+						grid[k][l] = grid[k - 1][l];
 					}
 				}
 			}
