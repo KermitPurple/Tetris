@@ -6,22 +6,23 @@
 #include"gotoxy.h"
 using namespace std;
 
-const int width = 10;
-const int height = 20;
-int score = 0;
-
-int ticknum = 0;
-
 struct coord {
 	int x;
 	int y;
 };
 
+const int width = 10;
+const int height = 20;
+int score = 0;
+int ticknum = 0;
+
+coord CurTet;
+
 string CurrentTetrimino[4] = {
-	"....",
-	"....",
-	"....",
-	"....",
+	"xxxx",
+	"xxxx",
+	"xxxx",
+	"xxxx",
 };
 
 string hold[4] = {
@@ -173,6 +174,19 @@ void PrintScoreNum(){
 	cout << score;
 }
 
+void PrintTetrimino(){
+
+	for(int i = 0; i < 4; i++){
+		for(int j = 0; j < 4; j++){
+			gotoxy(CurTet.x + 2 * j, CurTet.y + i);
+			if(CurrentTetrimino[i][j] != '.'){
+				cout << char(219) << char(219);
+			}
+		}
+	}
+
+}
+
 void rotate(char c){
 	string temp[4];
 	if(c == 'r'){
@@ -253,17 +267,26 @@ int main(){
 	system("cls");
 	srand(time(NULL));
 	int speed = 20;
+	CurTet = {7, 6};
+
 	
 	RandPiece();
-
 	PrintGrid();
 	PrintHold();
+      	PrintTetrimino();
 	PrintScoreNum();
-
 	while(1){
+		if(ticknum % speed == 0){
+		}
 		kbin();
+		tick();
+		if(ticknum % 100000 == 0){
+			speed--;
+			if(speed == 0){
+				//win
+			}
+		}
 	}
-
 	gotoxy(0, 26);
 
 	return 0;
