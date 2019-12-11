@@ -96,13 +96,13 @@ int grid[height][width] = {
 void color(int c){
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), c);
 }
-void ColorSel(){
+void ColorSel(string arr[4]){
 	bool empty = true;
 	char ch;
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
-			if(CurrentTetrimino[i][j] != '.'){
-				ch = CurrentTetrimino[i][j];
+			if(arr[i][j] != '.'){
+				ch = arr[i][j];
 				empty = false;
 				break;				
 			}
@@ -189,7 +189,7 @@ void PrintGrid(){
 	PrintScore();
 }
 void PrintHold(){
-	ColorSel();
+	ColorSel(hold);
 	coord h = {13, 1};
 	for(int i = 0; i < 4; i++){
 		for(int  j = 0; j < 4; j++){
@@ -209,7 +209,7 @@ void PrintScoreNum(){
 	cout << score;
 }
 void PrintTetrimino(){
-	ColorSel();
+	ColorSel(CurrentTetrimino);
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
 			gotoxy(CurTet.x + 2 * j, CurTet.y + i);
