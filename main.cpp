@@ -78,26 +78,26 @@ const string Tetrimino[][4] = {
 };
 
 int grid[height][width] = {
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,1,1,1},
+	{0,0,0,0,0,0,0,1,1,1},
+	{0,0,0,0,0,0,0,1,1,1},
+	{0,0,0,0,0,0,0,1,1,1},
+	{1,0,0,0,0,0,0,1,1,1},
+	{1,0,0,0,0,0,0,1,1,1},
+	{1,0,0,0,0,0,0,1,1,1},
+	{1,0,0,0,0,0,0,1,1,1},
+	{1,0,0,0,0,0,0,1,1,1},
+	{1,0,0,0,0,0,0,1,1,1},
+	{1,0,0,0,0,0,0,1,1,1},
+	{1,0,0,0,0,0,0,1,1,1},
+	{1,0,0,0,0,0,0,1,1,1},
+	{1,0,0,0,0,0,0,1,1,1},
+	{1,0,0,0,0,0,0,1,1,1},
+	{1,0,0,0,1,1,0,1,1,1},
+	{1,0,0,0,0,0,0,1,1,1},
+	{1,0,0,0,0,0,0,1,1,1},
+	{1,0,0,0,0,0,0,1,1,1},
+	{1,0,0,1,1,1,1,1,1,1},
 };
 
 void tick(){
@@ -199,6 +199,7 @@ void DeleteTetrimino(){
 
 void rotate(char c){
 	string temp[4];
+	DeleteTetrimino();
 	if(c == 'r'){
 		for(int i = 0; i < 4; i++){
 			for(int j = 0; j < 4;j++){
@@ -223,6 +224,7 @@ void rotate(char c){
 			}
 		}
 	}
+	PrintTetrimino();
 }
 
 void RandPiece(){
@@ -249,8 +251,41 @@ void swap(){
 	PrintHold();
 }
 
+bool LeftCond(){
+	for(int i = 0; i < 4; i++){
+		for(int j = 0; j < 4; j++){
+			if(CurrentTetrimino[i][j] != '.' && grid[CurTet.y - 7 + i][((CurTet.x -1) / 2) + j - 1] == 1){
+				return false;
+			}
+		}
+	}
+	return true;	
+}
+
+bool RightCond(){
+	for(int i = 0; i < 4; i++){
+		for(int j = 0; j < 4; j++){
+			if(CurrentTetrimino[i][j] != '.' && grid[CurTet.y - 7 + i][((CurTet.x -1) / 2) + j + 1] == 1){
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+bool DownCond(){
+	for(int i = 0; i < 4; i++){
+		for(int j = 0; j < 4; j++){
+			if(CurrentTetrimino[i][j] != '.' && grid[CurTet.y - 6 + i + 1][((CurTet.x -1) / 2) + j] == 1){
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
 void MoveLeft(){
-	if(1){
+	if(LeftCond()){
 		DeleteTetrimino();
 		CurTet.x -= 2;
 		PrintTetrimino();
@@ -258,7 +293,7 @@ void MoveLeft(){
 }
 
 void MoveRight(){
-	if(1){
+	if(RightCond()){
 		DeleteTetrimino();
 		CurTet.x += 2;
 		PrintTetrimino();
@@ -266,9 +301,11 @@ void MoveRight(){
 }
 
 void MoveDown(){
+	if(DownCond()){
 		DeleteTetrimino();
 		CurTet.y++;
 		PrintTetrimino();
+	}
 }
 
 void kbin(){
