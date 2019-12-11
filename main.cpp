@@ -302,7 +302,7 @@ void solidify(){
 bool LeftCond(){
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
-			if(CurrentTetrimino[i][j] != '.' && (grid[CurTet.y - 6 + i][((CurTet.x -1) / 2) + j - 1] != '.' || CurTet.x + j <= 0)){
+			if(CurrentTetrimino[i][j] != '.' && (grid[CurTet.y - 6 + i][((CurTet.x -1) / 2) + j - 1] != '.' || ((CurTet.x -1) / 2) + j - 1 < 0 )){
 				return false;
 			}
 		}
