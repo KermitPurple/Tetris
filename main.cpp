@@ -159,7 +159,10 @@ void PrintHold(){
 	for(int i = 0; i < 4; i++){
 		for(int  j = 0; j < 4; j++){
 			gotoxy(h.x + 2*j, h.y +  i);
-			if(hold[i][j] != '.'){
+			if(hold[i][j] == '.'){
+				cout << "  ";
+			}
+			else {
 				cout << char(219) << char(219);
 			}
 		}
@@ -220,6 +223,7 @@ void swap(){
 	if (empty){
 		RandPiece();
 	}
+	PrintHold();
 }
 
 void kbin(){
@@ -256,6 +260,10 @@ int main(){
 	PrintGrid();
 	PrintHold();
 	PrintScoreNum();
+
+	while(1){
+		kbin();
+	}
 
 	gotoxy(0, 26);
 
