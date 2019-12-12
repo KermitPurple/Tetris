@@ -446,6 +446,7 @@ void InstaDrop(){
 	DeleteTetrimino();
 	while(1){
 		score += 5;
+		PrintScoreNum();
 		if(DownCond()){
 			CurTet.y++;
 		}
@@ -491,6 +492,8 @@ void kbin(){
 		}
 		else if(ch == 's'){
 			MoveDown();
+			score += 5;
+			PrintScoreNum();
 		}
 		else if(ch == 'd'){
 			MoveRight();
