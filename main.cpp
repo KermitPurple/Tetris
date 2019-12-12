@@ -7,8 +7,6 @@
 #include"Hide.h"
 using namespace std;
 
-//TODO: Tetris music
-
 struct coord {
 	int x;
 	int y;
