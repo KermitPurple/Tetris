@@ -384,6 +384,7 @@ void solidify(){
 	CurTet = { 7, 6};
 	RandPiece();
 	ClearLine();
+	PrintTetrimino();
 }
 bool LeftCond(){
 	for(int i = 0; i < 4; i++){
