@@ -429,6 +429,11 @@ void kbin(){
 		else if(ch == 'r'){
 			FillBoard();
 		}
+		else if (ch == 27){
+			gotoxy(0, 26);
+			ShowConsoleCursor(true);
+			exit(0);
+		}
 	}
 }
 int main(){
