@@ -405,7 +405,9 @@ void MoveDown(){
 void InstaDrop(){
 	while(1){
 		if(DownCond()){
-			MoveDown();
+			DeleteTetrimino();
+			CurTet.y++;
+			PrintTetrimino();
 		}
 		else{
 			solidify();
