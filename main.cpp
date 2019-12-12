@@ -4,6 +4,7 @@
 #include<time.h>
 #include<windows.h>
 #include"gotoxy.h"
+#include"Hide.h"
 using namespace std;
 
 //TODO: Colision for rotation
@@ -137,6 +138,7 @@ void FillBoard(){
 			else{
 				ColorSel(grid[i][j]);
 				cout << char(219) << char(219);
+				color(7);
 			}
 		}
 	}
@@ -299,6 +301,7 @@ void ClearLine(){
 	int counter = 0;
 	for(int i = 0; i < height; i++){
 		if(DetectClear(i)){
+			counter++;
 			for(int j = 0; j < width; j++){
 				grid[i][j] = '.';
 			}
@@ -314,7 +317,25 @@ void ClearLine(){
 			}
 		}
 	}
+	switch(counter) {
+		case 0:
+			score += 0;
+			break;
+		case 1:
+			score += 100;
+			break;
+		case 2:
+			score += 400;
+			break;
+		case 3:
+			score += 800;
+			break;
+		case 4:
+			score += 1600;
+			break;
+	}
 	FillBoard();
+	PrintScoreNum();
 }
 void solidify(){
 	for(int i = 0; i < 4; i++){
@@ -412,6 +433,7 @@ void kbin(){
 }
 int main(){
 	system("cls");
+	ShowConsoleCursor(false);
 	srand(time(NULL));
 	int speed = 20;
 	CurTet = {7, 6};
@@ -428,6 +450,6 @@ int main(){
 		tick();
 	}
 	gotoxy(0, 26);
-
+	ShowConsoleCursor(true);
 	return 0;
 }
