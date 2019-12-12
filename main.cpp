@@ -457,6 +457,15 @@ bool Loss(){
 	}
 	return false;
 }
+bool cont(){
+	char ch;
+	do{
+		cout << "Do you wish to play again? y/n" << endl;
+		ch = getch();
+	}while(ch != 'y' && ch != 'Y' && ch != 'n' && ch != 'N');
+	if(ch == 'y' || ch == 'Y') return true;
+	else if(ch == 'n' || ch == 'N') return false;
+}
 void kbin(){
 	if(kbhit()){
 		char ch;
@@ -490,29 +499,38 @@ void kbin(){
 	}
 }
 int main(){
-	system("cls");
-	ShowConsoleCursor(false);
-	srand(time(NULL));
-	int speed = 20;
-	CurTet = {7, 6};
-	
-	RandPiece();
-	PrintGrid();
-      	PrintTetrimino();
-	PrintScoreNum();
 	while(1){
-		if(ticknum % speed == 0){
-			MoveDown();
-			if(Loss()) break;
+		system("cls");
+		ShowConsoleCursor(false);
+		srand(time(NULL));
+		int speed = 20;
+		CurTet = {7, 6};
+		
+		RandPiece();
+		PrintGrid();
+		PrintTetrimino();
+		PrintScoreNum();
+		while(1){
+			if(ticknum % speed == 0){
+				MoveDown();
+				if(Loss()) break;
+			}
+			kbin();
+			tick();
+			if(ticknum % 100000 == 0){
+				speed--;
+				if(speed < 0) speed = 0;
+			}
 		}
-		kbin();
-		tick();
-		if(ticknum % 100000 == 0){
-			speed--;
-			if(speed < 0) speed = 0;
+		gotoxy(0, 27);
+		ShowConsoleCursor(true);
+		cout << "You lost!\nYour Score Was " << score << endl;
+		if(!cont()) break;
+		for(int i = 0; i < height; i++){
+			for(int j = 0; j < width; j++){
+				grid[i][j] = '.';
+			}
 		}
 	}
-	gotoxy(0, 26);
-	ShowConsoleCursor(true);
 	return 0;
 }
