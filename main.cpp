@@ -303,6 +303,16 @@ void ClearLine(){
 			for(int j = 0; j < width; j++){
 				grid[i][j] = '.';
 			}
+			for(int j = i; j >= 0; j--){
+				for(int k = 0; k < width; k++){
+					if(j == 0){
+						grid[j][k] = '.';
+					}
+					else{
+						grid[j][k] = grid[j - 1][k];
+					}
+				}
+			}
 		}
 	}
 	FillBoard();
