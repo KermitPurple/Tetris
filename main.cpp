@@ -237,6 +237,16 @@ void DeleteTetrimino(){
 		}
 	}
 }
+bool collide(){
+	for(int i = 0; i < 4; i++){
+		for(int j = 0; j < 4; j++){
+			if(CurrentTetrimino[i][j] != '.' && grid[CurTet.y - 6 + i][((CurTet.x -1) / 2) + j] != '.'){
+				return true;
+			}
+		}
+	}
+	return false;
+}
 void rotate(char c){
 	string temp[4];
 	DeleteTetrimino();
@@ -251,6 +261,18 @@ void rotate(char c){
 				CurrentTetrimino[i][j] = temp[i][j];
 			}
 		}
+		if(collide()){
+			for(int i = 0; i < 4; i++){
+				for(int j = 0; j < 4;j++){
+					temp[i][j] = CurrentTetrimino[j][3 - i];
+				}
+			}
+			for(int i = 0; i < 4; i++){
+				for(int j = 0; j < 4; j++){
+					CurrentTetrimino[i][j] = temp[i][j];
+				}
+			}
+		}
 	}
 	else if(c == 'l'){
 		for(int i = 0; i < 4; i++){
@@ -263,6 +285,19 @@ void rotate(char c){
 				CurrentTetrimino[i][j] = temp[i][j];
 			}
 		}
+		if(collide()){
+			for(int i = 0; i < 4; i++){
+				for(int j = 0; j < 4;j++){
+					temp[i][j] = CurrentTetrimino[3 - j][i];
+				}
+			}
+			for(int i = 0; i < 4; i++){
+				for(int j = 0; j < 4; j++){
+					CurrentTetrimino[i][j] = temp[i][j];
+				}
+			}
+		}
+
 	}
 	PrintTetrimino();
 }
