@@ -449,6 +449,14 @@ void InstaDrop(){
 		}
 	}
 }
+bool Loss(){
+	for(int i = 0; i < 3;i++){
+		if(grid[i][4] != '.' || grid[i][5] != '.'){
+			return true;
+		}
+	}
+	return false;
+}
 void kbin(){
 	if(kbhit()){
 		char ch;
@@ -498,9 +506,14 @@ int main(){
 	while(1){
 		if(ticknum % speed == 0){
 			MoveDown();
+			if(Loss()) break;
 		}
 		kbin();
 		tick();
+		if(ticknum % 100000 == 0){
+			speed--;
+			if(speed < 0) speed = 0;
+		}
 	}
 	gotoxy(0, 26);
 	ShowConsoleCursor(true);
