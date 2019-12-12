@@ -443,13 +443,13 @@ void MoveDown(){
 	else solidify();
 }
 void InstaDrop(){
+	DeleteTetrimino();
 	while(1){
 		if(DownCond()){
-			DeleteTetrimino();
 			CurTet.y++;
-			PrintTetrimino();
 		}
 		else{
+			PrintTetrimino();
 			solidify();
 			break;
 		}
