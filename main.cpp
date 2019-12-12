@@ -8,7 +8,6 @@
 using namespace std;
 
 //TODO: Colision for rotation
-//TODO: InstaDrop
 //TODO: Tetris music
 
 struct coord {
