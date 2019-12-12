@@ -4,6 +4,8 @@ You know what this is.
 
 Controls:
 
+	W: Insta Drop
+
 	A: Move left
 	
 	S: Speed Down

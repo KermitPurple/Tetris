@@ -402,6 +402,17 @@ void MoveDown(){
 	}
 	else solidify();
 }
+void InstaDrop(){
+	while(1){
+		if(DownCond()){
+			MoveDown();
+		}
+		else{
+			solidify();
+			break;
+		}
+	}
+}
 void kbin(){
 	if(kbhit()){
 		char ch;
@@ -413,7 +424,7 @@ void kbin(){
 			rotate('r');
 		}
 		else if(ch == 'w'){
-			//fast drop
+			InstaDrop();
 		}
 		else if(ch == 'a'){
 			MoveLeft();
