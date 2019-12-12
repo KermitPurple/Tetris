@@ -13,7 +13,7 @@ struct coord {
 } CurTet;
 const int width = 10;
 const int height = 20;
-int score = 0;
+int score;
 int ticknum = 0;
 bool SwapReady = true;
 string CurrentTetrimino[4] = {
@@ -144,7 +144,7 @@ void FillBoard(){
 void tick(){
 	Sleep(50);
 	ticknum++;
-	if(ticknum >= 100000){
+	if(ticknum >= 3000){
 		ticknum = 0;
 	}
 }
@@ -509,6 +509,7 @@ int main(){
 		srand(time(NULL));
 		int speed = 20;
 		CurTet = {7, 6};
+		score = 0;
 		
 		RandPiece();
 		PrintGrid();
@@ -521,7 +522,7 @@ int main(){
 			}
 			kbin();
 			tick();
-			if(ticknum % 100000 == 0){
+			if(ticknum % 10000 == 0){
 				speed--;
 				if(speed < 0) speed = 0;
 			}
