@@ -445,6 +445,7 @@ void MoveDown(){
 void InstaDrop(){
 	DeleteTetrimino();
 	while(1){
+		score += 5;
 		if(DownCond()){
 			CurTet.y++;
 		}
