@@ -6,7 +6,6 @@
 #include"gotoxy.h"
 using namespace std;
 
-//TODO: Clear full lines
 //TODO: Colision for rotation
 //TODO: Tetris music
 
