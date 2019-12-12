@@ -15,6 +15,7 @@ const int width = 10;
 const int height = 20;
 int score = 0;
 int ticknum = 0;
+bool SwapReady = true;
 string CurrentTetrimino[4] = {
 	"xxxx",
 	"xxxx",
@@ -304,22 +305,26 @@ void RandPiece(){
 	}
 }
 void swap(){
-	DeleteTetrimino();
-	bool empty = true;
-	string temp[4];
-	for(int i = 0; i < 4; i++){
-		temp[i] = hold[i];
-		hold[i] = CurrentTetrimino[i];
-		CurrentTetrimino[i] = temp[i];
-		if(CurrentTetrimino[i] != "...."){
-			empty = false;
+	if(SwapReady){
+		DeleteTetrimino();
+		CurTet = {7, 6};
+		bool empty = true;
+		string temp[4];
+		for(int i = 0; i < 4; i++){
+			temp[i] = hold[i];
+			hold[i] = CurrentTetrimino[i];
+			CurrentTetrimino[i] = temp[i];
+			if(CurrentTetrimino[i] != "...."){
+				empty = false;
+			}
 		}
+		if (empty){
+			RandPiece();
+		}
+		PrintHold();
+		PrintTetrimino();
+		SwapReady = false;
 	}
-	if (empty){
-		RandPiece();
-	}
-	PrintHold();
-	PrintTetrimino();
 }
 bool DetectClear(int i){
 	for(int j = 0; j < width; j++){
@@ -381,6 +386,7 @@ void solidify(){
 	RandPiece();
 	ClearLine();
 	PrintTetrimino();
+	SwapReady = true;
 }
 bool LeftCond(){
 	for(int i = 0; i < 4; i++){
@@ -462,7 +468,7 @@ bool cont(){
 		ch = getch();
 	}while(ch != 'y' && ch != 'Y' && ch != 'n' && ch != 'N');
 	if(ch == 'y' || ch == 'Y') return true;
-	else if(ch == 'n' || ch == 'N') return false;
+	else return false;
 }
 void kbin(){
 	if(kbhit()){
