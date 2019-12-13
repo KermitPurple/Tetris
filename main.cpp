@@ -537,15 +537,19 @@ void kbin(){
 	}
 }
 void DisplayScores(){
-	ifstream scrs;
-	scrs.open("scores.txt");
+	ifstream scrs("scores.txt");
 	string str;
 	while (scrs >> str){
 		cout << setw(15) << str << "  ";
 		scrs >> str;
 		cout << str << endl;
 	}
+	scrs.close();
 	cout << endl;
+}
+void RecordScore(){
+	fstream scrs("scores.txt");
+	scrs.close();
 }
 void menu(){
 	char choice;
@@ -600,6 +604,7 @@ int main(){
 		gotoxy(0, 27);
 		ShowConsoleCursor(true);
 		cout << "You lost!\nYour Score Was " << score << endl;
+		RecordScore();
 		if(!cont()) break;
 		for(int i = 0; i < height; i++){
 			for(int j = 0; j < width; j++){
