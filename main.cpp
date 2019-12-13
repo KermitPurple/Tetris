@@ -562,17 +562,11 @@ void RecordScore(){
 	}
 	names[0] = name;
 	scores[0] = score;
-	fstream scrs("scores.txt");
-	while(scrs >> names[i]){
+	ifstream scrs("scores.txt");
+	for(i = 1;scrs >> names[i]; i++){
 		scrs >> scores[i];
-		cout << names[i] << " " << scores[i];
-		cout << endl;
-		i++;
 	}
-	cout << endl;
-	for(int j = 0; j < i; j++){
-		cout << names[i] << " " << scores[i] << endl;
-	}
+      	scrs.close();
 	for(int j = 0; j < i; j++){
 		for(int k = 1; k < i - j; k++){
 			if(scores[k - 1] < scores[k]){
@@ -580,15 +574,16 @@ void RecordScore(){
 				scores[k - 1] = scores[k];
 				scores[k] = temp;
 				string tempstr = names[k - 1];
-				names[k] = names[k];
+				names[k - 1] = names[k];
 				names[k] = tempstr;
 			}
 		}
 	}
+	ofstream s("scores.txt");
 	for(int j = 0; j < i; j++){
-		//scrs << names[j] << scores[j];
+		s << names[j] << " " << scores[j] << endl;
 	}	
-      	scrs.close();
+	s.close();
 	DisplayScores();
 }
 void menu(){
