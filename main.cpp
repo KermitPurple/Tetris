@@ -155,6 +155,14 @@ void PrintScore(){
 	gotoxy(1, 1);
 	cout << "Score:";
 }
+void PrintSpeed(){
+	gotoxy(1,3);
+	cout << "Speed:";
+}
+void PrintSpeedNum(int speed){
+	gotoxy(1,4);
+	cout << 20 - speed;	
+}
 void PrintGrid(){
 	int g[27][13] = {
 		{ 201, 205, 205, 205, 205, 205, 205, 203, 205, 205, 205, 205, 187},
@@ -194,6 +202,7 @@ void PrintGrid(){
 		cout << endl;
 	}
 	PrintScore();
+	PrintSpeed();
 }
 void PrintHold(){
 	coord h = {13, 1};
@@ -538,6 +547,7 @@ int main(){
 		PrintGrid();
 		PrintTetrimino();
 		PrintScoreNum();
+		PrintSpeedNum(speed);
 		while(1){
 			kbin();
 			if(!paused){
@@ -549,6 +559,7 @@ int main(){
 				if(ticknum % 600 == 0){
 					speed--;
 					if(speed < 0) speed = 0;
+					PrintSpeedNum(speed);
 				}
 			}
 		}
