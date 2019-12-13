@@ -161,7 +161,7 @@ void PrintSpeed(){
 }
 void PrintSpeedNum(int speed){
 	gotoxy(1,4);
-	cout << 20 - speed;	
+	cout << 16 - speed;	
 }
 void PrintGrid(){
 	int g[27][13] = {
@@ -539,7 +539,7 @@ int main(){
 		system("cls");
 		ShowConsoleCursor(false);
 		srand(time(NULL));
-		int speed = 20;
+		int speed = 15;
 		CurTet = {7, 6};
 		score = 0;
 		
@@ -556,7 +556,7 @@ int main(){
 					if(Loss()) break;
 				}
 				tick();
-				if(ticknum % 600 == 0){
+				if(ticknum % 200 == 0){
 					speed--;
 					if(speed < 0) speed = 0;
 					PrintSpeedNum(speed);
