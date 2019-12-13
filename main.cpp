@@ -547,7 +547,10 @@ void menu(){
 	while(choice < '1' || choice > '3'){
 		choice = getch();
 	}
-	if(choice == '3') exit(0);
+	if(choice == '3') {
+		ShowConsoleCursor(true);
+		exit(0);
+	}
 	//else if (choice == '2') DisplayScores();
 }
 int main(){
