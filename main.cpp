@@ -3,6 +3,8 @@
 #include<conio.h>
 #include<time.h>
 #include<windows.h>
+#include<fstream>
+#include<iomanip>
 #include"gotoxy.h"
 #include"Hide.h"
 using namespace std;
@@ -534,6 +536,17 @@ void kbin(){
 		}
 	}
 }
+void DisplayScores(){
+	ifstream scrs;
+	scrs.open("scores.txt");
+	string str;
+	while (scrs >> str){
+		cout << setw(15) << str << "  ";
+		scrs >> str;
+		cout << str << endl;
+	}
+	cout << endl;
+}
 void menu(){
 	char choice;
 	cout << " ____ ____ ____ ____ ____ ____ " << endl;
@@ -544,14 +557,15 @@ void menu(){
 	cout << "2) High Scores" << endl << endl;
 	cout << "3) Exit" << endl << endl;
 
-	while(choice < '1' || choice > '3'){
+	while(1){
 		choice = getch();
+		if(choice == '1') break;
+		else if (choice == '2') DisplayScores();
+		else if(choice == '3') {
+			ShowConsoleCursor(true);
+			exit(0);
+		}
 	}
-	if(choice == '3') {
-		ShowConsoleCursor(true);
-		exit(0);
-	}
-	//else if (choice == '2') DisplayScores();
 }
 int main(){
 	while(1){
