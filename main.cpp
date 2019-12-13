@@ -539,15 +539,17 @@ int main(){
 		PrintTetrimino();
 		PrintScoreNum();
 		while(1){
-			if(ticknum % speed == 0){
-				MoveDown();
-				if(Loss()) break;
-			}
 			kbin();
-			tick();
-			if(ticknum % 10000 == 0){
-				speed--;
-				if(speed < 0) speed = 0;
+			if(!paused){
+				if(ticknum % speed == 0){
+					MoveDown();
+					if(Loss()) break;
+				}
+				tick();
+				if(ticknum % 10000 == 0){
+					speed--;
+					if(speed < 0) speed = 0;
+				}
 			}
 		}
 		gotoxy(0, 27);
