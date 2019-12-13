@@ -18,6 +18,7 @@ const int height = 20;
 int score;
 int ticknum = 0;
 bool SwapReady = true;
+bool paused = false;
 string CurrentTetrimino[4] = {
 	"xxxx",
 	"xxxx",
@@ -474,6 +475,19 @@ bool cont(){
 	if(ch == 'y' || ch == 'Y') return true;
 	else return false;
 }
+void pause(){
+	if(!paused){
+		paused = true;
+		gotoxy(6, 14);
+		cout << "--PAUSED--";
+
+	}
+	else{
+		paused = false;
+		FillBoard();
+		PrintTetrimino();
+	}
+}
 void kbin(){
 	if(kbhit()){
 		char ch;
@@ -497,6 +511,9 @@ void kbin(){
 		}
 		else if(ch == 'd'){
 			MoveRight();
+		}
+		else if(ch == 'p'){
+			pause();
 		}
 		else if(ch == ' '){
 			swap();
