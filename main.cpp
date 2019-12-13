@@ -556,9 +556,9 @@ int main(){
 					if(Loss()) break;
 				}
 				tick();
-				if(ticknum % 200 == 0){
+				if(ticknum % 500 == 0){
 					speed--;
-					if(speed < 1) speed = 1;
+					if(speed <= 1) speed = 1;
 					PrintSpeedNum(speed);
 				}
 			}
