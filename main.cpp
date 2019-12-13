@@ -552,9 +552,9 @@ void menu(){
 }
 int main(){
 	while(1){
-		system("cls");
-		menu();
 		ShowConsoleCursor(false);
+		menu();
+		system("cls");
 		srand(time(NULL));
 		int speed = 15;
 		CurTet = {7, 6};
