@@ -534,8 +534,18 @@ void kbin(){
 		}
 	}
 }
+void menu(){
+	int choice;
+	cout << " ____ ____ ____ ____ ____ ____ " << endl;
+	cout << "||T |||e |||t |||r |||i |||s ||" << endl;
+	cout << "||__|||__|||__|||__|||__|||__||" << endl;
+	cout << "|/__\\|/__\\|/__\\|/__\\|/__\\|/__\\|" << endl;
+	system("pause");
+
+}
 int main(){
 	while(1){
+		menu();
 		system("cls");
 		ShowConsoleCursor(false);
 		srand(time(NULL));
