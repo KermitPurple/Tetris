@@ -535,18 +535,25 @@ void kbin(){
 	}
 }
 void menu(){
-	int choice;
+	char choice;
 	cout << " ____ ____ ____ ____ ____ ____ " << endl;
 	cout << "||T |||e |||t |||r |||i |||s ||" << endl;
 	cout << "||__|||__|||__|||__|||__|||__||" << endl;
-	cout << "|/__\\|/__\\|/__\\|/__\\|/__\\|/__\\|" << endl;
-	system("pause");
+	cout << "|/__\\|/__\\|/__\\|/__\\|/__\\|/__\\|" << endl << endl;
+	cout << "1) Play" << endl << endl;
+	cout << "2) High Scores" << endl << endl;
+	cout << "3) Exit" << endl << endl;
 
+	while(choice < '1' || choice > '3'){
+		choice = getch();
+	}
+	if(choice == '3') exit(0);
+	//else if (choice == '2') DisplayScores();
 }
 int main(){
 	while(1){
-		menu();
 		system("cls");
+		menu();
 		ShowConsoleCursor(false);
 		srand(time(NULL));
 		int speed = 15;
