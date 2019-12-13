@@ -548,6 +548,15 @@ void DisplayScores(){
 	cout << endl;
 }
 void RecordScore(){
+	string name;
+	while(1){
+		cout << "Please enter your name: ";
+		cin >> name;
+		if(name.length() > 15){
+			cout << "Your name must be under 15 characters" << endl << endl;
+		}
+		else break;
+	}
 	fstream scrs("scores.txt");
 	scrs.close();
 }
