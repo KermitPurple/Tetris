@@ -558,7 +558,7 @@ int main(){
 				tick();
 				if(ticknum % 200 == 0){
 					speed--;
-					if(speed < 0) speed = 0;
+					if(speed < 1) speed = 1;
 					PrintSpeedNum(speed);
 				}
 			}
