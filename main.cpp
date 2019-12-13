@@ -546,7 +546,7 @@ int main(){
 					if(Loss()) break;
 				}
 				tick();
-				if(ticknum % 10000 == 0){
+				if(ticknum % 600 == 0){
 					speed--;
 					if(speed < 0) speed = 0;
 				}
