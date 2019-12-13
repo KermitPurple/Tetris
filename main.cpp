@@ -17,6 +17,7 @@ struct coord {
 } CurTet;
 const int width = 10;
 const int height = 20;
+const string ScorePath = "C:\\Users\\Shane\\Desktop\\Coding\\C++\\Tetris\\scores.txt";
 int score;
 int ticknum = 0;
 bool SwapReady = true;
@@ -537,7 +538,7 @@ void kbin(){
 	}
 }
 void DisplayScores(){
-	ifstream scrs("scores.txt");
+	ifstream scrs(ScorePath);
 	string str;
 	while (scrs >> str){
 		cout << setw(15) << str << "  ";
@@ -562,7 +563,7 @@ void RecordScore(){
 	}
 	names[0] = name;
 	scores[0] = score;
-	ifstream scrs("scores.txt");
+	ifstream scrs(ScorePath);
 	for(i = 1;scrs >> names[i]; i++){
 		scrs >> scores[i];
 	}
@@ -579,7 +580,7 @@ void RecordScore(){
 			}
 		}
 	}
-	ofstream s("scores.txt");
+	ofstream s(ScorePath);
 	for(int j = 0; j < i; j++){
 		s << names[j] << " " << scores[j] << endl;
 	}	
