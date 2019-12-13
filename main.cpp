@@ -549,6 +549,9 @@ void DisplayScores(){
 }
 void RecordScore(){
 	string name;
+	string names[100];
+	int scores[100];
+	int i = 1;
 	while(1){
 		cout << "Please enter your name: ";
 		cin >> name;
@@ -557,8 +560,36 @@ void RecordScore(){
 		}
 		else break;
 	}
+	names[0] = name;
+	scores[0] = score;
 	fstream scrs("scores.txt");
-	scrs.close();
+	while(scrs >> names[i]){
+		scrs >> scores[i];
+		cout << names[i] << " " << scores[i];
+		cout << endl;
+		i++;
+	}
+	cout << endl;
+	for(int j = 0; j < i; j++){
+		cout << names[i] << " " << scores[i] << endl;
+	}
+	for(int j = 0; j < i; j++){
+		for(int k = 1; k < i - j; k++){
+			if(scores[k - 1] < scores[k]){
+				int temp = scores[k - 1];
+				scores[k - 1] = scores[k];
+				scores[k] = temp;
+				string tempstr = names[k - 1];
+				names[k] = names[k];
+				names[k] = tempstr;
+			}
+		}
+	}
+	for(int j = 0; j < i; j++){
+		//scrs << names[j] << scores[j];
+	}	
+      	scrs.close();
+	DisplayScores();
 }
 void menu(){
 	char choice;
