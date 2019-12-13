@@ -505,30 +505,32 @@ void kbin(){
 		char ch;
 		ch = getch();
 		if(ch == 'q'){
-			rotate('l');
+			if(!paused) rotate('l');
 		}
 		else if(ch == 'e'){
-			rotate('r');
+			if(!paused) rotate('r');
 		}
 		else if(ch == 'w'){
-			InstaDrop();
+			if(!paused) InstaDrop();
 		}
 		else if(ch == 'a'){
-			MoveLeft();
+			if(!paused) MoveLeft();
 		}
 		else if(ch == 's'){
-			MoveDown();
-			score += 5;
-			PrintScoreNum();
+			if(!paused){
+				MoveDown();
+				score += 5;
+				PrintScoreNum();
+			}
 		}
 		else if(ch == 'd'){
-			MoveRight();
+			if(!paused) MoveRight();
 		}
 		else if(ch == 'p'){
 			pause();
 		}
 		else if(ch == ' '){
-			swap();
+			if(!paused) swap();
 		}
 		else if (ch == 27){
 			gotoxy(0, 26);
