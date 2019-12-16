@@ -249,10 +249,10 @@ void DeleteTetrimino(){
 		}
 	}
 }
-bool collide(){
+bool collide(int dx = 0, int dy = 0){
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
-			if(CurrentTetrimino[i][j] != '.' && (grid[CurTet.y - 6 + i][((CurTet.x -1) / 2) + j] != '.' || ((CurTet.x -1) / 2) + j < 0 || ((CurTet.x -1) / 2) + j > 9)){
+			if(CurrentTetrimino[i + dy][j + dx] != '.' && (grid[CurTet.y - 6 + i + dy][((CurTet.x -1) / 2) + j + dx] != '.' || ((CurTet.x -1) / 2) + j + dx < 0 || ((CurTet.x -1) / 2) + j + dx > 9)){
 				return true;
 			}
 		}
