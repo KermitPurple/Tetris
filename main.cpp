@@ -252,7 +252,7 @@ void DeleteTetrimino(){
 bool collide(int dx = 0, int dy = 0){
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
-			if(CurrentTetrimino[i + dy][j + dx] != '.' && (grid[CurTet.y - 6 + i + dy][((CurTet.x -1) / 2) + j + dx] != '.' || ((CurTet.x -1) / 2) + j + dx < 0 || ((CurTet.x -1) / 2) + j + dx > 9)){
+			if(CurrentTetrimino[i][j] != '.' && (grid[CurTet.y - 6 + i + dy][((CurTet.x -1) / 2) + j + dx] != '.' || ((CurTet.x -1) / 2) + j + dx < 0 || ((CurTet.x -1) / 2) + j + dx > 9)){
 				return true;
 			}
 		}
@@ -403,52 +403,22 @@ void solidify(){
 	PrintTetrimino();
 	SwapReady = true;
 }
-bool LeftCond(){
-	for(int i = 0; i < 4; i++){
-		for(int j = 0; j < 4; j++){
-			if(CurrentTetrimino[i][j] != '.' && (grid[CurTet.y - 6 + i][((CurTet.x -1) / 2) + j - 1] != '.' || ((CurTet.x -1) / 2) + j - 1 < 0 )){
-				return false;
-			}
-		}
-	}
-	return true;	
-}
-bool RightCond(){
-	for(int i = 0; i < 4; i++){
-		for(int j = 0; j < 4; j++){
-			if(CurrentTetrimino[i][j] != '.' && (grid[CurTet.y - 6 + i][((CurTet.x -1) / 2) + j + 1] != '.' ||((CurTet.x -1) / 2) + j + 1 >= 10 )){
-				return false;
-			}
-		}
-	}
-	return true;
-}
-bool DownCond(){
-	for(int i = 0; i < 4; i++){
-		for(int j = 0; j < 4; j++){
-			if(CurrentTetrimino[i][j] != '.' && grid[CurTet.y - 6 + i + 1][((CurTet.x -1) / 2) + j] != '.'){
-				return false;
-			}
-		}
-	}
-	return true;
-}
 void MoveLeft(){
-	if(LeftCond()){
+	if(!collide(-1,0)){
 		DeleteTetrimino();
 		CurTet.x -= 2;
 		PrintTetrimino();
 	}
 }
 void MoveRight(){
-	if(RightCond()){
+	if(!collide(1,0)){
 		DeleteTetrimino();
 		CurTet.x += 2;
 		PrintTetrimino();
 	}
 }
 void MoveDown(){
-	if(DownCond()){
+	if(!collide(0,1)){
 		DeleteTetrimino();
 		CurTet.y++;
 		PrintTetrimino();
@@ -460,7 +430,7 @@ void InstaDrop(){
 	while(1){
 		score += 5;
 		PrintScoreNum();
-		if(DownCond()){
+		if(!collide(0,1)){
 			CurTet.y++;
 		}
 		else{
