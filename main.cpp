@@ -9,8 +9,6 @@
 #include"Hide.h"
 using namespace std;
 
-//TODO:Add Scoreboard using fstream
-
 struct coord {
 	int x;
 	int y;
