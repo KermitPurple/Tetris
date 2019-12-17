@@ -12,7 +12,9 @@ using namespace std;
 struct coord {
 	int x;
 	int y;
-} CurTet;
+};
+coord CurTet;
+coord shadowpos;
 const int width = 10;
 const int height = 20;
 const string ScorePath = "C:\\Users\\Shane\\Desktop\\Coding\\C++\\Tetris\\scores.txt";
@@ -28,6 +30,12 @@ string CurrentTetrimino[4] = {
 	"xxxx",
 };
 string hold[4] = {
+	"....",
+	"....",
+	"....",
+	"....",
+};
+string shadow[] = {
 	"....",
 	"....",
 	"....",
@@ -257,6 +265,54 @@ bool collide(int dx = 0, int dy = 0){
 		}
 	}
 	return false;
+}
+void PrintShadow(){
+	for(int i = 0; i < 4; i++){
+		for(int j = 0; j < 4; j++){
+			gotoxy(shadowpos.x + i, shadowpos.y + j);
+			if(CurrentTetrimino[i][j] != '.'){
+				ColorSel(CurrentTetrimino[i][j]);
+				cout << char(176) << char(176);
+				color(7);
+			}
+			else {
+				cout << "  ";
+			}
+		}
+	}
+}
+void DeleteShadow(){
+	for(int i = 0; i < 4; i++){
+		for(int j = 0; j < 4; j++){
+			gotoxy(shadowpos.x + i, shadowpos.y + j);
+			if(CurrentTetrimino[i][j] != '.'){
+				cout << "  ";
+			}
+		}
+	}
+}
+void UpdateShadow(){
+	DeleteShadow();
+	shadowpos = {7, 6};
+	for(int i = 0; i < 4; i++){
+		for(int j = 0; j < 4; j++){
+			shadow[i][j] = CurrentTetrimino[i][j];
+		}
+	}
+	while(1){
+		bool coll = false;
+		for(int i = 0; i < 4; i++){
+			for(int j = 0; j < 4; j++){
+				if(shadow[i][j] != '.' && (grid[CurTet.y - 6 + i][((CurTet.x -1) / 2) + j] != '.' || ((CurTet.x -1) / 2) + j < 0 || ((CurTet.x -1) / 2) + j > 9)){
+					coll = true;
+				}
+			}
+		}
+		if(!coll){
+			shadowpos.y--;						
+		}
+		else break;
+	}
 }
 void rotate(char c){
 	string temp[4];
@@ -499,6 +555,9 @@ void kbin(){
 			ShowConsoleCursor(true);
 			exit(0);
 		}
+		else if (ch == 'z'){
+			UpdateShadow();
+		}
 	}
 }
 void DisplayScores(){
@@ -589,6 +648,7 @@ int main(){
 		srand(time(NULL));
 		int speed = 15;
 		CurTet = {7, 6};
+		shadowpos = {7, 6};
 		score = 0;
 		running = true;
 		RandPiece();
