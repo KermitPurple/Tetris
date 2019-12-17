@@ -20,6 +20,7 @@ int score;
 int ticknum = 0;
 bool SwapReady = true;
 bool paused = false;
+bool running;
 string CurrentTetrimino[4] = {
 	"xxxx",
 	"xxxx",
@@ -400,6 +401,7 @@ void solidify(){
 	ClearLine();
 	PrintTetrimino();
 	SwapReady = true;
+	if(collide()) running = false;
 }
 void MoveLeft(){
 	if(!collide(-1,0)){
@@ -437,14 +439,6 @@ void InstaDrop(){
 			break;
 		}
 	}
-}
-bool Loss(){
-	for(int i = 0; i < 3;i++){
-		if(grid[i][4] != '.' || grid[i][5] != '.'){
-			return true;
-		}
-	}
-	return false;
 }
 bool cont(){
 	char ch;
@@ -596,18 +590,17 @@ int main(){
 		int speed = 15;
 		CurTet = {7, 6};
 		score = 0;
-		
+		running = true;
 		RandPiece();
 		PrintGrid();
 		PrintTetrimino();
 		PrintScoreNum();
 		PrintSpeedNum(speed);
-		while(1){
+		while(running){
 			kbin();
 			if(!paused){
 				if(ticknum % speed == 0){
 					MoveDown();
-					if(Loss()) break;
 				}
 				tick();
 				if(ticknum % 500 == 0){
