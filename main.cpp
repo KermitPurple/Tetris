@@ -45,6 +45,44 @@ string shadow[] = {
 	"....",
 	"....",
 };
+string queue[6][4] = {
+	{
+		".I..",
+		".I..",
+		".I..",
+		".I..",
+	},
+	{
+		"....",
+		".OO.",
+		".OO.",
+		"....",
+	},
+	{
+		".S..",
+		".SS.",
+		"..S.",
+		"....",
+	},
+	{
+		"..Z.",
+		".ZZ.",
+		".Z..",
+		"....",
+	},
+	{
+		"..J.",
+		"..J.",
+		".JJ.",
+		"....",
+	},
+	{
+		".L..",
+		".L..",
+		".LL.",
+		"....",
+	},
+};
 const string Tetrimino[][4] = {
 	{
 		".I..",
@@ -169,6 +207,23 @@ void PrintSpeedNum(int speed){
 	gotoxy(1,4);
 	cout << 16 - speed;	
 }
+void PrintUpNext(){
+	for(int i = 0; i < 6; i++){
+		for(int j = 0; j < 4; j++){
+			for(int k = 0; k < 4; k++){
+				gotoxy(22 + 2*k,2+4*i+j);
+				if(queue[i][j][k] != '.'){
+					ColorSel(queue[i][j][k]);
+					cout << char(219) << char(219);
+					color(7);
+				}
+				else{
+					cout << "  ";
+				}
+			}
+		}
+	}
+}
 void PrintGrid(){
 	int g[27][18] = {
 		{ 201, 205, 205, 205, 205, 205, 205, 203, 205, 205, 205, 205, 203, 205, 205, 205, 205, 187},
@@ -213,6 +268,7 @@ void PrintGrid(){
 	cout << "Score:";
 	gotoxy(22, 1);
 	cout <<"Up Next:";
+	PrintUpNext();
 }
 void PrintHold(){
 	coord h = {13, 1};
