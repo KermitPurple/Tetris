@@ -628,8 +628,17 @@ void config(){
 
 
 		cout << "1) Toggle Shadow (Currently ";
-		if(sh) cout << "on)" << endl;
-		else cout << "off)" << endl;
+		if(sh){
+			color(10);
+			cout << "on";
+			color(7);
+		}
+		else{
+			color(12);
+			cout << "off";
+			color(7);
+		}
+		cout << ")" << endl;
 
 		cout << endl << "2) Back" << endl;
 
