@@ -614,34 +614,70 @@ void RecordScore(){
 	s.close();
 	DisplayScores();
 }
-void menu(){
-	char choice;
-	color(13);
-	cout << " _______  _______  _______  ______    ___   _______ " << endl;
-	cout << "|       ||       ||       ||    _ |  |   | |       |" << endl;
-	cout << "|_     _||    ___||_     _||   | ||  |   | |  _____|" << endl;
-	cout << "  |   |  |   |___   |   |  |   |_||_ |   | | |_____ " << endl;
-	cout << "  |   |  |    ___|  |   |  |    __  ||   | |_____  |" << endl;
-	cout << "  |   |  |   |___   |   |  |   |  | ||   |  _____| |" << endl;
-	cout << "  |___|  |_______|  |___|  |___|  |_||___| |_______|" << endl;
-	color(10);
-	cout << "     ____ ____      ____ ____ ____ ____ ____ " << endl;
-	cout << "    ||b |||y ||    ||S |||h |||a |||n |||e ||" << endl;
-	cout << "    ||__|||__||    ||__|||__|||__|||__|||__||" << endl;
-	cout << "    |/__\\|/__\\|    |/__\\|/__\\|/__\\|/__\\|/__\\|" << endl << endl;
-	color(7);
-	cout << "1) Play" << endl << endl;
-	cout << "2) High Scores" << endl << endl;
-	cout << "3) Exit" << endl << endl;
-
+void config(){
 	while(1){
+		char choice;
+		bool sh;
+		ifstream icfg(ConfigPath);
+		icfg >> sh;		
+		icfg.close();
+
+
+
+		cout << "1) Toggle Shadow (Currently ";
+		if(sh) cout << "on)" << endl;
+		else cout << "off)" << endl;
+
+		cout << endl << "2) Back" << endl;
+
+		choice = getch();
+		if(choice == '1'){
+			ofstream ocfg(ConfigPath);
+			if(sh) ocfg << false;
+			else ocfg << true;
+			ocfg.close();
+		}
+		else if(choice == '2')break;
+		system("cls");
+	}
+}
+void menu(){
+	while(1){
+		char choice;
+		color(13);
+		cout << " _______  _______  _______  ______    ___   _______ " << endl;
+		cout << "|       ||       ||       ||    _ |  |   | |       |" << endl;
+		cout << "|_     _||    ___||_     _||   | ||  |   | |  _____|" << endl;
+		cout << "  |   |  |   |___   |   |  |   |_||_ |   | | |_____ " << endl;
+		cout << "  |   |  |    ___|  |   |  |    __  ||   | |_____  |" << endl;
+		cout << "  |   |  |   |___   |   |  |   |  | ||   |  _____| |" << endl;
+		cout << "  |___|  |_______|  |___|  |___|  |_||___| |_______|" << endl;
+		color(10);
+		cout << "     ____ ____      ____ ____ ____ ____ ____ " << endl;
+		cout << "    ||b |||y ||    ||S |||h |||a |||n |||e ||" << endl;
+		cout << "    ||__|||__||    ||__|||__|||__|||__|||__||" << endl;
+		cout << "    |/__\\|/__\\|    |/__\\|/__\\|/__\\|/__\\|/__\\|" << endl << endl;
+		color(7);
+		cout << "1) Play" << endl << endl;
+		cout << "2) High Scores" << endl << endl;
+		cout << "3) Config" << endl << endl;
+		cout << "4) Exit" << endl << endl;
 		choice = getch();
 		if(choice == '1') break;
-		else if (choice == '2') DisplayScores();
+		else if (choice == '2'){
+			system("cls");
+			DisplayScores();
+			system("pause");
+		}
 		else if(choice == '3') {
+			system("cls");
+			config();
+		}
+		else if(choice == '4') {
 			ShowConsoleCursor(true);
 			exit(0);
 		}
+		system("cls");
 	}
 }
 int main(){
