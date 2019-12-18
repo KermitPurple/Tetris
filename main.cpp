@@ -23,6 +23,7 @@ int score;
 int ticknum = 0;
 bool SwapReady = true;
 bool paused = false;
+bool ShadowOn = true;
 bool running;
 string CurrentTetrimino[4] = {
 	"xxxx",
@@ -290,28 +291,30 @@ void DeleteShadow(){
 	}
 }
 void UpdateShadow(){
-	DeleteShadow();
-	shadowpos = {CurTet.x, CurTet.y};
-	for(int i = 0; i < 4; i++){
-		for(int j = 0; j < 4; j++){
-			shadow[i][j] = CurrentTetrimino[i][j];
-		}
-	}
-	while(1){
-		bool coll = false;
+	if(ShadowOn){
+		DeleteShadow();
+		shadowpos = {CurTet.x, CurTet.y};
 		for(int i = 0; i < 4; i++){
 			for(int j = 0; j < 4; j++){
-				if(shadow[i][j] != '.' && (grid[shadowpos.y - 6 + i + 1][((shadowpos.x -1) / 2) + j] != '.' || ((shadowpos.x -1) / 2) + j < 0 || ((shadowpos.x -1) / 2) + j > 9)){
-					coll = true;
-				}
+				shadow[i][j] = CurrentTetrimino[i][j];
 			}
 		}
-		if(!coll){
-			shadowpos.y++;						
+		while(1){
+			bool coll = false;
+			for(int i = 0; i < 4; i++){
+				for(int j = 0; j < 4; j++){
+					if(shadow[i][j] != '.' && (grid[shadowpos.y - 6 + i + 1][((shadowpos.x -1) / 2) + j] != '.' || ((shadowpos.x -1) / 2) + j < 0 || ((shadowpos.x -1) / 2) + j > 9)){
+						coll = true;
+					}
+				}
+			}
+			if(!coll){
+				shadowpos.y++;						
+			}
+			else break;
 		}
-		else break;
+		PrintShadow();
 	}
-	PrintShadow();
 }
 void rotate(char c){
 	string temp[4];
@@ -679,12 +682,15 @@ void menu(){
 		}
 		system("cls");
 	}
+	system("cls");
 }
 int main(){
 	while(1){
 		ShowConsoleCursor(false);
 		menu();
-		system("cls");
+		ifstream icfg(ConfigPath);
+		icfg >> ShadowOn;
+		icfg.close();
 		srand(time(NULL));
 		int speed = 15;
 		CurTet = {7, 6};
