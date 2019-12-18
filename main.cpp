@@ -18,6 +18,7 @@ coord shadowpos;
 const int width = 10;
 const int height = 20;
 const string ScorePath = "C:\\Users\\Shane\\Desktop\\Coding\\C++\\Tetris\\scores.txt";
+const string ConfigPath = "C:\\Users\\Shane\\Desktop\\Coding\\C++\\Tetris\\config.txt";
 int score;
 int ticknum = 0;
 bool SwapReady = true;
