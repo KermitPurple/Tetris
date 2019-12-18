@@ -21,6 +21,8 @@ const string ScorePath = "C:\\Users\\Shane\\Desktop\\Coding\\C++\\Tetris\\scores
 const string ConfigPath = "C:\\Users\\Shane\\Desktop\\Coding\\C++\\Tetris\\config.txt";
 int score;
 int ticknum = 0;
+int SolidifyCounter = 0;
+int SolidifyRate = 1;
 bool SwapReady = true;
 bool paused = false;
 bool ShadowOn = true;
@@ -489,7 +491,11 @@ void MoveDown(){
 		CurTet.y++;
 		PrintTetrimino();
 	}
-	else solidify();
+	else if(SolidifyCounter == SolidifyRate){
+		solidify();
+		SolidifyCounter = 0;
+	}
+	else SolidifyCounter++;
 }
 void InstaDrop(){
 	DeleteTetrimino();
@@ -722,6 +728,7 @@ int main(){
 				if(ticknum % 500 == 0){
 					speed--;
 					if(speed <= 1) speed = 1;
+					else if(speed <= 8) SolidifyRate += 2;
 					PrintSpeedNum(speed);
 				}
 			}
