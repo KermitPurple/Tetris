@@ -5,6 +5,7 @@
 #include<windows.h>
 #include<fstream>
 #include<iomanip>
+#include<MMSystem.h>
 #include"gotoxy.h"
 #include"Hide.h"
 using namespace std;
@@ -774,6 +775,7 @@ void menu(){
 int main(){
 	while(1){
 		ShowConsoleCursor(false);
+		PlaySound("a.wav", NULL, SND_SYNC);
 		menu();
 		ifstream icfg(ConfigPath);
 		icfg >> ShadowOn;
