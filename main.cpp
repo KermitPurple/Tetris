@@ -269,14 +269,11 @@ bool collide(int dx = 0, int dy = 0){
 void PrintShadow(){
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
-			gotoxy(shadowpos.x + i, shadowpos.y + j);
-			if(CurrentTetrimino[i][j] != '.'){
+			gotoxy(shadowpos.x + 2*j, shadowpos.y + i);
+			if(shadow[i][j] != '.'){
 				ColorSel(CurrentTetrimino[i][j]);
 				cout << char(176) << char(176);
 				color(7);
-			}
-			else {
-				cout << "  ";
 			}
 		}
 	}
@@ -284,8 +281,8 @@ void PrintShadow(){
 void DeleteShadow(){
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
-			gotoxy(shadowpos.x + i, shadowpos.y + j);
-			if(CurrentTetrimino[i][j] != '.'){
+			gotoxy(shadowpos.x + 2*j, shadowpos.y + i);
+			if(shadow[i][j] != '.'){
 				cout << "  ";
 			}
 		}
@@ -293,7 +290,7 @@ void DeleteShadow(){
 }
 void UpdateShadow(){
 	DeleteShadow();
-	shadowpos = {7, 6};
+	shadowpos = {CurTet.x, CurTet.y};
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
 			shadow[i][j] = CurrentTetrimino[i][j];
@@ -303,16 +300,17 @@ void UpdateShadow(){
 		bool coll = false;
 		for(int i = 0; i < 4; i++){
 			for(int j = 0; j < 4; j++){
-				if(shadow[i][j] != '.' && (grid[CurTet.y - 6 + i][((CurTet.x -1) / 2) + j] != '.' || ((CurTet.x -1) / 2) + j < 0 || ((CurTet.x -1) / 2) + j > 9)){
+				if(shadow[i][j] != '.' && (grid[shadowpos.y - 6 + i + 1][((shadowpos.x -1) / 2) + j] != '.' || ((shadowpos.x -1) / 2) + j < 0 || ((shadowpos.x -1) / 2) + j > 9)){
 					coll = true;
 				}
 			}
 		}
 		if(!coll){
-			shadowpos.y--;						
+			shadowpos.y++;						
 		}
 		else break;
 	}
+	PrintShadow();
 }
 void rotate(char c){
 	string temp[4];
@@ -366,6 +364,7 @@ void rotate(char c){
 		}
 
 	}
+	UpdateShadow();
 	PrintTetrimino();
 }
 void RandPiece(){
@@ -391,6 +390,7 @@ void swap(){
 		if (empty){
 			RandPiece();
 		}
+		UpdateShadow();
 		PrintHold();
 		PrintTetrimino();
 		SwapReady = false;
@@ -452,9 +452,13 @@ void solidify(){
 			}
 		}
 	}
+	for(int i = 0; i < 4; i++){
+		shadow[i] = "....";
+	}
 	CurTet = { 7, 6};
 	RandPiece();
 	ClearLine();
+	UpdateShadow();
 	PrintTetrimino();
 	SwapReady = true;
 	if(collide()) running = false;
@@ -463,6 +467,7 @@ void MoveLeft(){
 	if(!collide(-1,0)){
 		DeleteTetrimino();
 		CurTet.x -= 2;
+		UpdateShadow();
 		PrintTetrimino();
 	}
 }
@@ -470,6 +475,7 @@ void MoveRight(){
 	if(!collide(1,0)){
 		DeleteTetrimino();
 		CurTet.x += 2;
+		UpdateShadow();
 		PrintTetrimino();
 	}
 }
@@ -554,9 +560,6 @@ void kbin(){
 			gotoxy(0, 26);
 			ShowConsoleCursor(true);
 			exit(0);
-		}
-		else if (ch == 'z'){
-			UpdateShadow();
 		}
 	}
 }
@@ -656,6 +659,7 @@ int main(){
 		PrintTetrimino();
 		PrintScoreNum();
 		PrintSpeedNum(speed);
+		UpdateShadow();
 		while(running){
 			kbin();
 			if(!paused){
