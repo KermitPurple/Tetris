@@ -45,41 +45,35 @@ string shadow[] = {
 	"....",
 	"....",
 };
-string queue[6][4] = {
-	{
-		".I..",
-		".I..",
-		".I..",
-		".I..",
-	},
+string queue[5][4] = {
 	{
 		"....",
-		".OO.",
-		".OO.",
+		"....",
+		"....",
 		"....",
 	},
 	{
-		".S..",
-		".SS.",
-		"..S.",
+		"....",
+		"....",
+		"....",
 		"....",
 	},
 	{
-		"..Z.",
-		".ZZ.",
-		".Z..",
+		"....",
+		"....",
+		"....",
 		"....",
 	},
 	{
-		"..J.",
-		"..J.",
-		".JJ.",
+		"....",
+		"....",
+		"....",
 		"....",
 	},
 	{
-		".L..",
-		".L..",
-		".LL.",
+		"....",
+		"....",
+		"....",
 		"....",
 	},
 };
@@ -208,10 +202,10 @@ void PrintSpeedNum(int speed){
 	cout << 16 - speed;	
 }
 void PrintUpNext(){
-	for(int i = 0; i < 6; i++){
+	for(int i = 0; i < 5; i++){
 		for(int j = 0; j < 4; j++){
 			for(int k = 0; k < 4; k++){
-				gotoxy(22 + 2*k,2+4*i+j);
+				gotoxy(22 + 2 * k, 2 + 5 * i + j);
 				if(queue[i][j][k] != '.'){
 					ColorSel(queue[i][j][k]);
 					cout << char(219) << char(219);
@@ -425,11 +419,37 @@ void rotate(char c){
 	UpdateShadow();
 	PrintTetrimino();
 }
-void RandPiece(){
-	int random = rand() % 7;
-	for(int i = 0; i < 4; i++){
-		CurrentTetrimino[i] = Tetrimino[random][i];
+void FillQueue(){
+	for(int i = 0; i < 5; i++){
+		bool empty = true;
+		for(int j = 0; j < 4; j++){
+			if(queue[i][j] != "...."){
+				empty = false;
+				break;
+			}
+		}
+		if(empty){
+			int random = rand() % 7;
+			for(int j = 0; j < 4; j++){
+				queue[i][j] = Tetrimino[random][j];
+			}
+		}
 	}
+	PrintUpNext();
+}
+void GetPiece(){
+	for(int i = 0; i < 4; i++){
+		CurrentTetrimino[i] = queue[0][i];
+	}
+	for(int i = 1; i < 5; i++){
+		for(int j = 0; j < 4; j++){
+			queue[i-1][j] = queue[i][j];
+		}
+	}
+	for(int i = 0; i < 4; i++){
+		queue[4][i] = "....";
+	}
+	FillQueue();
 }
 void swap(){
 	if(SwapReady){
@@ -446,7 +466,7 @@ void swap(){
 			}
 		}
 		if (empty){
-			RandPiece();
+			GetPiece();
 		}
 		UpdateShadow();
 		PrintHold();
@@ -514,7 +534,7 @@ void solidify(){
 		shadow[i] = "....";
 	}
 	CurTet = { 7, 6};
-	RandPiece();
+	GetPiece();
 	ClearLine();
 	UpdateShadow();
 	PrintTetrimino();
@@ -764,8 +784,9 @@ int main(){
 		shadowpos = {7, 6};
 		score = 0;
 		running = true;
-		RandPiece();
 		PrintGrid();
+		FillQueue();
+		GetPiece();
 		PrintTetrimino();
 		PrintScoreNum();
 		PrintSpeedNum(speed);
