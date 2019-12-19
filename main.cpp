@@ -642,6 +642,7 @@ void kbin(){
 			if(!paused) swap();
 		}
 		else if (ch == 27){
+			PlaySound(NULL, NULL, SND_ASYNC | SND_LOOP);
 			gotoxy(0, 26);
 			ShowConsoleCursor(true);
 			exit(0);
@@ -832,6 +833,7 @@ int main(){
 				}
 			}
 		}
+		PlaySound(NULL, NULL, SND_ASYNC | SND_LOOP);
 		gotoxy(0, 27);
 		ShowConsoleCursor(true);
 		cout << "You lost!\nYour Score Was " << score << endl;
