@@ -20,6 +20,7 @@ const int width = 10;
 const int height = 20;
 const string ScorePath = "C:\\Users\\Shane\\Desktop\\Coding\\C++\\Tetris\\scores.txt";
 const string ConfigPath = "C:\\Users\\Shane\\Desktop\\Coding\\C++\\Tetris\\config.txt";
+const auto MusicPath = "C:\\Users\\Shane\\Desktop\\Coding\\C++\\tetris\\TetrisTheme.wav";
 int score;
 int ticknum = 0;
 int SolidifyCounter = 0;
@@ -801,7 +802,7 @@ int main(){
 		icfg >> MusicOn;
 		icfg.close();
 		if(MusicOn){
-			PlaySound("C:\\Users\\Shane\\Desktop\\Coding\\C++\\tetris\\TetrisTheme.wav", NULL, SND_ASYNC);
+			PlaySound(MusicPath, NULL, SND_ASYNC | SND_LOOP);
 		}
 		srand(time(NULL));
 		int speed = 15;
