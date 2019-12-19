@@ -604,6 +604,7 @@ void pause(){
 	else{
 		paused = false;
 		FillBoard();
+		PrintShadow();
 		PrintTetrimino();
 	}
 }
