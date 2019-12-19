@@ -701,12 +701,11 @@ void config(){
 	while(1){
 		char choice;
 		bool sh;
+		bool music;
 		ifstream icfg(ConfigPath);
 		icfg >> sh;		
+		icfg >> music;
 		icfg.close();
-
-
-
 		cout << "1) Toggle Shadow (Currently ";
 		if(sh){
 			color(10);
@@ -719,17 +718,36 @@ void config(){
 			color(7);
 		}
 		cout << ")" << endl;
+		cout << "2) Toggle Music (Currently ";
+		if(music){
+			color(10);
+			cout << "on";
+			color(7);
+		}
+		else{
+			color(12);
+			cout << "off";
+			color(7);
+		}
+		cout << ")" << endl;
 
-		cout << endl << "2) Back" << endl;
+		cout << endl << "3) Back" << endl;
 
 		choice = getch();
 		if(choice == '1'){
-			ofstream ocfg(ConfigPath);
-			if(sh) ocfg << false;
-			else ocfg << true;
-			ocfg.close();
+			if(sh) sh = false;
+			else sh = true;
 		}
-		else if(choice == '2')break;
+		else if(choice == '2'){
+			if(music) music = false;
+			else music = true;
+		}
+		else if(choice == '3')break;
+		ofstream ocfg(ConfigPath);
+		ocfg << sh << endl;
+		ocfg << music << endl;
+		ocfg.close();
+			
 		system("cls");
 	}
 }
@@ -776,11 +794,15 @@ void menu(){
 int main(){
 	while(1){
 		ShowConsoleCursor(false);
-		PlaySound("a.wav", NULL, SND_SYNC);
 		menu();
+		bool MusicOn;
 		ifstream icfg(ConfigPath);
 		icfg >> ShadowOn;
+		icfg >> MusicOn;
 		icfg.close();
+		if(MusicOn){
+			PlaySound("C:\\Users\\Shane\\Desktop\\Coding\\C++\\tetris\\TetrisTheme.wav", NULL, SND_ASYNC);
+		}
 		srand(time(NULL));
 		int speed = 15;
 		CurTet = {7, 6};
