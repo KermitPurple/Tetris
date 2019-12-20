@@ -178,7 +178,6 @@ void ColorSel(char ch){
 	}
 }
 void FillBoard(){
-
 	for(int i = 0; i < height; i++){
 		for(int j = 0; j < width; j++){
 			gotoxy(1 + 2 * j, 6 + i);
@@ -190,6 +189,14 @@ void FillBoard(){
 				cout << char(219) << char(219);
 				color(7);
 			}
+		}
+	}
+}
+void DeleteBoard(){
+	for(int i = 0; i < height; i++){
+		for(int j = 0; j < width; j++){
+			gotoxy(1 + 2 * j, 6 + i);
+			cout << "  ";
 		}
 	}
 }
@@ -598,6 +605,7 @@ bool cont(){
 }
 void pause(){
 	char choice;
+	DeleteBoard();
 	if(MusicOn){
 		PlaySound(NULL, NULL, SND_ASYNC | SND_LOOP);
 	}
@@ -877,6 +885,11 @@ int main(){
 		shadowpos = {7, 6};
 		score = 0;
 		running = true;
+		for(int i = 0; i < height; i++){
+			for(int j = 0; j < width; j++){
+				grid[i][j] = '.';
+			}
+		}
 		PrintGrid();
 		FillQueue();
 		GetPiece();
@@ -897,18 +910,13 @@ int main(){
 				PrintSpeedNum(speed);
 			}
 		}
-		if(!exit){
+		if(!ExitToMenu){
 			PlaySound(NULL, NULL, SND_ASYNC | SND_LOOP);
 			gotoxy(0, 27);
 			ShowConsoleCursor(true);
 			cout << "You lost!\nYour Score Was " << score << endl;
 			RecordScore();
 			if(!cont()) break;
-			for(int i = 0; i < height; i++){
-				for(int j = 0; j < width; j++){
-					grid[i][j] = '.';
-				}
-			}
 		}
 	}
 	return 0;
