@@ -28,6 +28,7 @@ int SolidifyRate = 1;
 bool SwapReady = true;
 bool paused = false;
 bool ShadowOn = true;
+bool MusicOn;
 bool running;
 string CurrentTetrimino[4] = {
 	"xxxx",
@@ -596,18 +597,76 @@ bool cont(){
 	else return false;
 }
 void pause(){
-	if(!paused){
-		paused = true;
-		gotoxy(6, 14);
+	while(1){
+		gotoxy(6, 12);
 		cout << "--PAUSED--";
+		char choice;
+		bool sh;
+		bool music;
+		ifstream icfg(ConfigPath);
+		icfg >> sh;		
+		icfg >> music;
+		icfg.close();
+		gotoxy(4,14);
+		cout << "1) Resume";
+		gotoxy(4,16);
+		cout << "2) Toggle Shadow";
+		gotoxy(5,17);
+		cout << "(Currently ";
+		if(sh){
+			color(10);
+			cout << "on";
+			color(7);
+		}
+		else{
+			color(12);
+			cout << "off";
+			color(7);
+		}
+		cout << ") ";
+		gotoxy(4,19);
+		cout << "3) Toggle Music";
+		gotoxy(5, 20);
+		cout << "(Currently ";
+		if(music){
+			color(10);
+			cout << "on";
+			color(7);
+		}
+		else{
+			color(12);
+			cout << "off";
+			color(7);
+		}
+		cout << ") ";
+		gotoxy(4,22);
+		cout << "4) Exit";
 
+		choice = getch();
+		if(choice == '1' || choice == 'p')break;
+		else if(choice == '2'){
+			if(sh) sh = false;
+			else sh = true;
+		}
+		else if(choice == '3'){
+			if(music) music = false;
+			else music = true;
+		}
+		else if(choice == '4'){
+			//exit
+		}
+		ofstream ocfg(ConfigPath);
+		ocfg << sh << endl;
+		ocfg << music << endl;
+		ocfg.close();
 	}
-	else{
-		paused = false;
-		FillBoard();
-		PrintShadow();
-		PrintTetrimino();
-	}
+	ifstream icfg(ConfigPath);
+	icfg >> ShadowOn;
+	icfg >> MusicOn;
+	icfg.close();
+	FillBoard();
+	if(ShadowOn)PrintShadow();
+	PrintTetrimino();
 }
 void kbin(){
 	if(kbhit()){
@@ -797,7 +856,6 @@ int main(){
 	while(1){
 		ShowConsoleCursor(false);
 		menu();
-		bool MusicOn;
 		ifstream icfg(ConfigPath);
 		icfg >> ShadowOn;
 		icfg >> MusicOn;
@@ -820,17 +878,15 @@ int main(){
 		UpdateShadow();
 		while(running){
 			kbin();
-			if(!paused){
-				if(ticknum % speed == 0){
-					MoveDown();
-				}
-				tick();
-				if(ticknum % 500 == 0){
-					speed--;
-					if(speed <= 1) speed = 1;
-					else if(speed <= 8) SolidifyRate += 2;
-					PrintSpeedNum(speed);
-				}
+			if(ticknum % speed == 0){
+				MoveDown();
+			}
+			tick();
+			if(ticknum % 500 == 0){
+				speed--;
+				if(speed <= 1) speed = 1;
+				else if(speed <= 8) SolidifyRate += 2;
+				PrintSpeedNum(speed);
 			}
 		}
 		PlaySound(NULL, NULL, SND_ASYNC | SND_LOOP);
