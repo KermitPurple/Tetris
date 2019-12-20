@@ -26,7 +26,6 @@ int ticknum = 0;
 int SolidifyCounter = 0;
 int SolidifyRate = 1;
 bool SwapReady = true;
-bool paused = false;
 bool ShadowOn = true;
 bool MusicOn;
 bool running;
@@ -673,32 +672,30 @@ void kbin(){
 		char ch;
 		ch = getch();
 		if(ch == 'q'){
-			if(!paused) rotate('l');
+			 rotate('l');
 		}
 		else if(ch == 'e'){
-			if(!paused) rotate('r');
+			 rotate('r');
 		}
 		else if(ch == 'w'){
-			if(!paused) InstaDrop();
+			InstaDrop();
 		}
 		else if(ch == 'a'){
-			if(!paused) MoveLeft();
+			MoveLeft();
 		}
 		else if(ch == 's'){
-			if(!paused){
-				MoveDown();
-				score += 5;
-				PrintScoreNum();
-			}
+			MoveDown();
+			score += 5;
+			PrintScoreNum();
 		}
 		else if(ch == 'd'){
-			if(!paused) MoveRight();
+			MoveRight();
 		}
 		else if(ch == 'p'){
 			pause();
 		}
 		else if(ch == ' '){
-			if(!paused) swap();
+			swap();
 		}
 		else if (ch == 27){
 			PlaySound(NULL, NULL, SND_ASYNC | SND_LOOP);
