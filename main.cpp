@@ -27,6 +27,7 @@ int SolidifyCounter = 0;
 int SolidifyRate = 1;
 bool SwapReady = true;
 bool ShadowOn = true;
+bool ExitToMenu = false;
 bool MusicOn;
 bool running;
 string CurrentTetrimino[4] = {
@@ -596,13 +597,13 @@ bool cont(){
 	else return false;
 }
 void pause(){
+	char choice;
 	if(MusicOn){
 		PlaySound(NULL, NULL, SND_ASYNC | SND_LOOP);
 	}
 	while(1){
 		gotoxy(6, 12);
 		cout << "--PAUSED--";
-		char choice;
 		bool sh;
 		bool music;
 		ifstream icfg(ConfigPath);
@@ -643,7 +644,6 @@ void pause(){
 		cout << ") ";
 		gotoxy(4,22);
 		cout << "4) Exit";
-
 		choice = getch();
 		if(choice == '1' || choice == 'p')break;
 		else if(choice == '2'){
@@ -654,8 +654,11 @@ void pause(){
 			if(music) music = false;
 			else music = true;
 		}
-		else if(choice == '4'){
-			//exit
+		else if(choice == '4' || choice == 27){
+			running = false;
+			ExitToMenu = true;
+			system("cls");
+			break;
 		}
 		ofstream ocfg(ConfigPath);
 		ocfg << sh << endl;
@@ -666,12 +669,14 @@ void pause(){
 	icfg >> ShadowOn;
 	icfg >> MusicOn;
 	icfg.close();
-	FillBoard();
-	if(ShadowOn)PrintShadow();
-	if(MusicOn){
-		PlaySound(MusicPath, NULL, SND_ASYNC | SND_LOOP);
+	if(choice != '4'){
+		FillBoard();
+		if(ShadowOn)PrintShadow();
+		if(MusicOn){
+			PlaySound(MusicPath, NULL, SND_ASYNC | SND_LOOP);
+		}
+		PrintTetrimino();
 	}
-	PrintTetrimino();
 }
 void kbin(){
 	if(kbhit()){
@@ -892,15 +897,17 @@ int main(){
 				PrintSpeedNum(speed);
 			}
 		}
-		PlaySound(NULL, NULL, SND_ASYNC | SND_LOOP);
-		gotoxy(0, 27);
-		ShowConsoleCursor(true);
-		cout << "You lost!\nYour Score Was " << score << endl;
-		RecordScore();
-		if(!cont()) break;
-		for(int i = 0; i < height; i++){
-			for(int j = 0; j < width; j++){
-				grid[i][j] = '.';
+		if(!exit){
+			PlaySound(NULL, NULL, SND_ASYNC | SND_LOOP);
+			gotoxy(0, 27);
+			ShowConsoleCursor(true);
+			cout << "You lost!\nYour Score Was " << score << endl;
+			RecordScore();
+			if(!cont()) break;
+			for(int i = 0; i < height; i++){
+				for(int j = 0; j < width; j++){
+					grid[i][j] = '.';
+				}
 			}
 		}
 	}
