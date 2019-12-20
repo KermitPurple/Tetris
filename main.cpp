@@ -596,6 +596,9 @@ bool cont(){
 	else return false;
 }
 void pause(){
+	if(MusicOn){
+		PlaySound(NULL, NULL, SND_ASYNC | SND_LOOP);
+	}
 	while(1){
 		gotoxy(6, 12);
 		cout << "--PAUSED--";
@@ -665,6 +668,9 @@ void pause(){
 	icfg.close();
 	FillBoard();
 	if(ShadowOn)PrintShadow();
+	if(MusicOn){
+		PlaySound(MusicPath, NULL, SND_ASYNC | SND_LOOP);
+	}
 	PrintTetrimino();
 }
 void kbin(){
