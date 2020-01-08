@@ -677,7 +677,7 @@ void pause(){
 	icfg >> ShadowOn;
 	icfg >> MusicOn;
 	icfg.close();
-	if(choice != '4'){
+	if(choice != '4' && choice != 27){
 		FillBoard();
 		if(ShadowOn)PrintShadow();
 		if(MusicOn){
