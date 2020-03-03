@@ -653,7 +653,7 @@ void pause(){
 		gotoxy(4,22);
 		cout << "4) Exit";
 		choice = getch();
-		if(choice == '1' || choice == 'p')break;
+		if(choice == '1' || choice == 'p' || choice == 27)break;
 		else if(choice == '2'){
 			if(sh) sh = false;
 			else sh = true;
@@ -662,7 +662,7 @@ void pause(){
 			if(music) music = false;
 			else music = true;
 		}
-		else if(choice == '4' || choice == 27){
+		else if(choice == '4'){
 			running = false;
 			ExitToMenu = true;
 			system("cls");
@@ -677,7 +677,7 @@ void pause(){
 	icfg >> ShadowOn;
 	icfg >> MusicOn;
 	icfg.close();
-	if(choice != '4' && choice != 27){
+	if(choice != '4'){
 		FillBoard();
 		if(ShadowOn)PrintShadow();
 		if(MusicOn){
@@ -710,17 +710,11 @@ void kbin(){
 		else if(ch == 'd'){
 			MoveRight();
 		}
-		else if(ch == 'p'){
+		else if(ch == 'p' || ch == 27){
 			pause();
 		}
 		else if(ch == ' '){
 			swap();
-		}
-		else if (ch == 27){
-			PlaySound(NULL, NULL, SND_ASYNC | SND_LOOP);
-			gotoxy(0, 26);
-			ShowConsoleCursor(true);
-			exit(0);
 		}
 	}
 }
